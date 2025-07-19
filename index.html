@@ -3,110 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
-    <title>Cake Stack Game</title>
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Play the addictive Cake Stack game online! How high can you stack the cake? Tap at the right moment to place the slice. Fun for all ages.">
-    <meta name="keywords" content="cake stack, stack game, online game, html5 game, fun game, tap game">
-    
+    <title>Cakrise - Cake Stack Game</title>
+    <meta name="description" content="Play the addictive Cakrise game online! How high can you stack the cake?">
+    <meta name="keywords" content="cakrise, cake stack, stack game, online game, html5 game, fun game, tap game">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;800&family=Baloo+Bhai+2:wght@700&family=Poppins:wght@700&family=Bebas+Neue&family=Anton&family=Oswald:wght@700&family=Quicksand:wght@700&family=Comic+Neue:wght@700&family=Fredoka:wght@700&family=Chewy&family=Caveat:wght@700&family=Patrick+Hand&family=Raleway:wght@700&family=Open+Sans:wght@700&family=Lato:wght@700&family=Bangers&family=Luckiest+Guy&display=swap" rel="stylesheet">
-    
     <style>
-        /* --- Basic Setup --- */
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         html { height: 100%; }
         body { width: 100%; height: 100%; overflow: hidden; font-family: 'Nunito', 'Arial', sans-serif; }
         .hidden { display: none !important; }
-
-        /* ========= 1. WEBSITE LAYOUT STYLES START ========= */
-        body {
-            display: flex;
-            flex-direction: column;
-            background-color: #f0f4f7;
-        }
-
-        #game-wrapper {
-            flex-grow: 1;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            height: 100%;
-        }
-
-        #ad-container, .navbar {
-            transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out;
-            max-height: 60px;
-            overflow: hidden;
-        }
-        
-        .game-active .navbar,
-        .game-active #ad-container {
-            max-height: 0;
-            opacity: 0;
-        }
-        
-        .game-over #ad-container {
-             max-height: 0;
-            opacity: 0;
-        }
-
-        .game-active #game-wrapper {
-            height: 100vh;
-        }
-
-        #ad-container {
-            width: 100%;
-            height: 60px;
-            background-color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            font-family: sans-serif;
-            flex-shrink: 0;
-        }
-        
-        /* UPDATED: Navbar color back to the original blue gradient */
-        .navbar {
-            width: 100%;
-            height: 60px;
-            background: linear-gradient(45deg, #6a89cc, #82ccdd);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-            flex-shrink: 0;
-            z-index: 5000;
-        }
-
+        a { text-decoration: none; }
+        body { display: flex; flex-direction: column; background-color: #f0f4f7; }
+        #game-wrapper { flex-grow: 1; position: relative; overflow: hidden; display: flex; height: 100%; }
+        #ad-container, .navbar { transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out; max-height: 60px; overflow: hidden; }
+        .game-active .navbar, .game-active #ad-container { max-height: 0; opacity: 0; }
+        .game-over #ad-container { max-height: 0; opacity: 0; }
+        .game-active #game-wrapper { height: 100vh; }
+        #ad-container { width: 100%; height: 60px; background-color: #333; display: flex; justify-content: center; align-items: center; color: #fff; font-family: sans-serif; flex-shrink: 0; }
+        .navbar { width: 100%; height: 60px; background: #343a40; box-shadow: 0 4px 10px rgba(0,0,0,0.15); display: flex; justify-content: space-between; align-items: center; padding: 0 20px; flex-shrink: 0; z-index: 5000; }
         .navbar-brand { display: flex; align-items: center; }
-        .navbar-logo { width: 40px; height: auto; margin-right: 12px; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));}
-        .navbar-title { font-family: 'Fredoka One', sans-serif; font-size: 24px; color: #fff; text-decoration: none; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
+        .navbar-logo { width: 40px; height: auto; margin-right: 12px; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2)); }
+        .navbar-title { font-family: 'Fredoka One', sans-serif; font-size: 28px; color: #fff; text-decoration: none; text-shadow: 0 0 5px #ff7979, 0 0 10px #ffbe76; }
         .hamburger-menu { display: none; font-size: 30px; background: none; border: none; cursor: pointer; color: #fff; }
-        .nav-links { display: flex; align-items: center; }
-        .nav-links a { margin-left: 25px; text-decoration: none; color: #f0f4f7; font-weight: bold; font-size: 16px; padding: 8px 15px; border-radius: 20px; transition: all 0.3s ease; border-bottom: 3px solid transparent; }
-        .nav-links a:hover { background-color: rgba(255,255,255,0.2); }
-        
-        .nav-links a.active {
-            color: #fff;
-            border-bottom-color: #ffdd57;
-        }
-        .nav-links a.active:hover {
-            background-color: transparent;
-        }
-
+        .nav-links { display: flex; align-items: center; height: 100%; }
+        .nav-links a { display: flex; align-items: center; height: 100%; margin-left: 10px; text-decoration: none; color: #adb5bd; font-weight: bold; font-size: 16px; padding: 0 15px; transition: all 0.3s ease; }
+        .nav-links a:hover { color: #fff; }
+        .nav-links a.active { color: #fff; background-color: #495057; }
         @media (max-width: 768px) {
+            .navbar-title { font-size: 24px; }
             .hamburger-menu { display: block; }
-            .nav-links { display: none; position: absolute; top: 60px; right: 0; background: linear-gradient(45deg, #6a89cc, #82ccdd); width: 100%; flex-direction: column; text-align: center; box-shadow: 0 5px 10px rgba(0,0,0,0.1); }
+            .nav-links { display: none; position: absolute; top: 60px; right: 0; background: #343a40; width: 100%; flex-direction: column; text-align: center; box-shadow: 0 5px 10px rgba(0,0,0,0.1); border-top: 1px solid #555; height: auto; }
             .nav-links.active { display: flex; }
-            .nav-links a { margin: 0; padding: 15px 0; border-top: 1px solid rgba(255,255,255,0.2); border-radius: 0; border-bottom: none; }
-            .nav-links a.active { background-color: rgba(255,255,255,0.1); }
+            .nav-links a { margin: 0; padding: 15px 0; border-top: 1px solid #495057; width: 100%; }
+            .nav-links a.active { background-color: #212529; }
         }
-        /* ========= WEBSITE LAYOUT STYLES END ========= */
-        
-        /* ========= 2. YOUR ORIGINAL GAME STYLES (ADAPTED FOR WRAPPER) ========= */
         #game-wrapper { background-image: url('play_game_bg.png'); background-size: cover; background-position: center; transition: background-image 1s ease-in-out; }
         .fullscreen-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #F7E7CE; display: flex; justify-content: center; align-items: center; z-index: 2000; flex-direction: column; color: #6B3E27; text-align: center; transition: opacity 0.5s ease-out; }
         #start-screen { background: none; }
@@ -160,7 +92,7 @@
         .icon-container:hover { transform: scale(1.1); background: rgba(255, 255, 255, 0.3); }
         .icon-container:active { transform: scale(0.95); }
         .icon-container img { width: 60%; height: 60%; }
-        #play-pause-control { position: absolute; top: 25px; right: 20px; left: auto; background: none; border: none; backdrop-filter: none; width: auto; height: auto; cursor: pointer; }
+        #play-pause-control { top: 25px; right: 20px; left: auto; background: none; border: none; backdrop-filter: none; width: auto; height: auto; cursor: pointer; }
         #play-pause-img { width: 40px; height: 40px; filter: drop-shadow(0px 0px 3px rgba(255, 255, 255, 0.9)); transition: transform 0.2s ease; }
         #play-pause-control:active #play-pause-img { transform: scale(0.9); }
         #tap-to-stack-message { top: 55%; left: 50%; transform: translate(-50%, -50%); font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: 30px; color: #FFFFFF; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25); pointer-events: none; z-index: 10; opacity: 1; transition: opacity 0.3s ease-out; animation: tapPulse 1.8s ease-in-out infinite;text-align: center; }
@@ -178,7 +110,7 @@
         @keyframes fade-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .stat-line { display: flex; align-items: center; justify-content: space-between; width: 85%; max-width: 320px; padding: 10px 20px; border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.7); background: rgba(0, 0, 0, 0.2); box-shadow: inset 0 0 10px rgba(0,0,0,0.2); }
         .stat-label-group { display: flex; align-items: center; gap: 10px; }
-        .stat-line .stat-label { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 18px; opacity: 0.9; font-weight: bold; /* UPDATED: Lighter and bolder text */ }
+        .stat-line .stat-label { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 18px; opacity: 1; }
         .stat-line .stat-value { font-family: 'Fredoka One', 'Chewy', sans-serif; font-size: 26px; font-weight: bold; }
         .your-score-stat-gameover .stat-label { color: #ffdae5; }
         .your-score-stat-gameover .stat-value { color: #FFFFFF; text-shadow: 2px 2px 0px #c40000; }
@@ -262,25 +194,22 @@
     </style>
 </head>
 <body>
-    <!-- ========= 1. WEBSITE HEADER (Navbar) ========= -->
     <header class="navbar">
         <div class="navbar-brand">
             <img src="cake.png" alt="Logo" class="navbar-logo">
-            <a href="index.html" class="navbar-title">Cake Stack</a>
+            <a href="index.html" class="navbar-title">Cakrise</a>
         </div>
         <div class="navbar-menu-container">
             <button id="hamburger-btn" class="hamburger-menu">☰</button>
             <nav id="nav-links" class="nav-links">
-                <a href="index.html" class="active">Game</a>
+                <a href="index.html">Game</a>
                 <a href="about.html">About</a>
                 <a href="privacy.html">Privacy Policy</a>
             </nav>
         </div>
     </header>
 
-    <!-- ========= 2. MAIN GAME CONTAINER (Wrapper) ========= -->
     <main id="game-wrapper">
-        <!-- ALL your original game HTML goes here, unchanged -->
         <div id="start-screen" class="fullscreen-overlay">
             <img src="cake.png" alt="Cake Stack Logo" id="start-screen-logo">
             <button id="initial-play-btn">Play Game</button>
@@ -311,7 +240,7 @@
         <div id="tap-to-stack-message" class="hidden">Tap to Stack!<br>👆</div>
         <div id="new-best-banner" class="hidden"><span class="new-best-text">🎉 New<br>Best Score!</span></div>
         <div id="pause-overlay" class="hidden">
-            <div class="pause-menu-box">
+             <div class="pause-menu-box">
                 <div id="resume-button" class="main-action"><img src="play.png" alt="Resume"><span class="resume-text">Resume</span></div>
                 <div class="pause-stats"><div class="cake-text-theme your-score-text">Your Score:<span id="pause-score">0</span></div><div class="cake-text-theme best-score-text">Best Score:<span id="pause-best-score">0</span></div></div>
                 <div class="pause-audio-controls"><div id="music-toggle-pause" class="icon-container"><img src="music.png" id="music-toggle-img" alt="Music"></div><div id="sfx-toggle-pause" class="icon-container"><img src="unmute.png" id="sfx-toggle-img" alt="SFX"></div></div>
@@ -338,148 +267,158 @@
         <div id="toast-notification" class="hidden"></div>
     </main>
 
-    <!-- ========= 3. ADVERTISEMENT FOOTER ========= -->
     <footer id="ad-container">
-        <!-- Adsterra ad code will go here -->
         <p>Advertisement</p>
     </footer>
     
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
     <script>
-    (function() {
-        'use strict';
-        
-        // ========= 4. NAVBAR JAVASCRIPT LOGIC =========
-        document.addEventListener('DOMContentLoaded', () => {
-            const hamburgerBtn = document.getElementById('hamburger-btn');
-            const navLinks = document.getElementById('nav-links');
-            if (hamburgerBtn && navLinks) {
-                hamburgerBtn.addEventListener('click', () => {
-                    navLinks.classList.toggle('active');
-                });
-            }
-        });
-
-        // ========= 5. YOUR ORIGINAL GAME JAVASCRIPT (WITH MINOR TWEAKS) =========
-        const CONFIG = { INITIAL_SPEED: 130, MAX_SPEED: 180, BASE_BLOCK_COUNT: 6, BLOCK_HEIGHT_VH: 3.4, STACK_START_TOP_VH: 97, CAMERA_MOVE_THRESHOLD: 12, PERFECT_MATCH_THRESHOLD: 2, COLORS: ['#F7E7CE', '#8b4513', '#F47983', '#62B6F4', '#fffacd', '#FFE150', '#FFBD59'], DRIP_COLORS: ['#f3e5ab', '#f78fa7', '#b0c4de', '#fff44f', '#bdfcc9'], BACKGROUND_GRADIENTS: ['linear-gradient(#6a89cc, #b8e994, #6a89cc)', 'linear-gradient(#82ccdd, #b8e994, #82ccdd)', 'linear-gradient(#ffbe76, #ff7979, #ffbe76)', 'linear-gradient(#f0932b, #ffb6c1, #f0932b)', 'linear-gradient(#7ed6df, #be2edd, #7ed6df)', 'linear-gradient(#f9ca24, #a29bfe, #f9ca24)'], EMOJIS: { happy: '☺️', cool: '😎', chef: '👨‍🍳', sad: '😥' }, POOL_SIZES: { SPARKLES: 20, FLOATING_SCORES: 5, EMOJIS: 5, BONUS_MESSAGES: 3 } };
-        const DOMElements = { body: document.body, gameWrapper: document.getElementById('game-wrapper'), startScreen: document.getElementById('start-screen'), initialPlayBtn: document.getElementById('initial-play-btn'), loadingOverlay: document.getElementById('loading-overlay'), progressBar: document.getElementById('progress-bar'), progressText: document.getElementById('progress-text'), container: document.getElementById('container'), scoreDisplay: document.getElementById('score'), uiTop: document.getElementById('ui-top'), menu: document.getElementById('menu'), gameOverBox: document.getElementById('game-over-box'), finalScoreValueNew: document.getElementById('final-score-value-new'), bestScoreFinalNew: document.getElementById('best-score-final-new'), perfectStacksFinalNew: document.getElementById('perfect-stacks-final-new'), perfectStackStatLine: document.querySelector('.perfect-stack-stat-gameover'), replayButtonGameOver: document.getElementById('replay-button-gameover'), floatingElementsBg: document.getElementById('floating-elements-bg'), animatedBg: document.getElementById('animated-gradient-bg'), tapToStackMessage: document.getElementById('tap-to-stack-message'), newBestScoreEmoji: document.getElementById('new-best-score-emoji'), newBestBanner: document.getElementById('new-best-banner'), playPauseControl: document.getElementById('play-pause-control'), playPauseImg: document.getElementById('play-pause-img'), pauseOverlay: document.getElementById('pause-overlay'), resumeButton: document.getElementById('resume-button'), pauseScoreDisplay: document.getElementById('pause-score'), pauseBestScoreDisplay: document.getElementById('pause-best-score'), restartButtonPause: document.getElementById('restart-button-pause'), sfxTogglePause: document.getElementById('sfx-toggle-pause'), musicTogglePause: document.getElementById('music-toggle-pause'), sfxToggleImg: document.getElementById('sfx-toggle-img'), musicToggleImg: document.getElementById('music-toggle-img'), settingsOverlay: document.getElementById('settings-overlay'), musicToggleSettings: document.getElementById('music-toggle-settings'), sfxToggleSettings: document.getElementById('sfx-toggle-settings'), musicVolumeSlider: document.getElementById('music-volume-slider'), sfxVolumeSlider: document.getElementById('sfx-volume-slider'), saveSettingsBtn: document.getElementById('save-settings-btn'), };
-        const Audio = { backgroundMusic: document.getElementById('backgroundMusic'), allSfx: Array.from(document.querySelectorAll('audio')), };
-        Audio.playClickSound = document.getElementById('playClickSound'); Audio.gameOverSound = document.getElementById('gameOverSound'); Audio.perfectSound = document.getElementById('perfectSound'); Audio.fallSound = document.getElementById('fallSound'); Audio.clickSound = document.getElementById('clickSound'); Audio.uiClickSound = document.getElementById('uiClickSound'); Audio.fanfareSound = document.getElementById('fanfareSound'); Audio.comboSound = document.getElementById('comboSound');
-        let state = { isPlaying: false, score: 0, perfectStackCombo: 0, blocks: [], currentBlock: null, animationFrameId: null, totalSessionPerfectStacks: 0, initialBlockWidth: 0, isPaused: false, hasTappedOnce: false, isPlacing: false, lastTimestamp: 0, isMusicMuted: false, areSfxMuted: false, musicVolume: 0.5, sfxVolume: 1.0, bestScore: 0, recordBrokenThisGame: false, gameFrozenForCelebration: false, backButtonPressedOnce: false, isGameOver: false };
-        const pools = { sparkles: [], floatingScores: [], emojis: [], bonusMessages: [] };
-        function createPool(poolName, className, count) { for (let i = 0; i < count; i++) { const el = document.createElement('div'); el.className = className + ' hidden'; DOMElements.gameWrapper.appendChild(el); pools[poolName].push(el); } }
-        function getFromPool(poolName) { const pool = pools[poolName]; for (const item of pool) { if (item.classList.contains('hidden')) { item.classList.remove('hidden'); return item; } } return null; }
-        function returnToPool(element, timeout = 0) { if (!element) return; setTimeout(() => { element.className = element.classList[0] + ' hidden'; element.style = ''; }, timeout); }
-        function initPools() { createPool('sparkles', 'sparkle', CONFIG.POOL_SIZES.SPARKLES); createPool('floatingScores', 'floating-score', CONFIG.POOL_SIZES.FLOATING_SCORES); createPool('emojis', 'emoji-face', CONFIG.POOL_SIZES.EMOJIS); createPool('bonusMessages', 'bonus-message', CONFIG.POOL_SIZES.BONUS_MESSAGES); }
-        function showEmojiFace(type, targetBlockElement) { const emojiEl = getFromPool('emojis'); if (!emojiEl || !CONFIG.EMOJIS[type] || !targetBlockElement) return; emojiEl.textContent = CONFIG.EMOJIS[type]; const rect = targetBlockElement.getBoundingClientRect(); emojiEl.style.left = `${rect.left + (rect.width / 2) - 20}px`; emojiEl.style.top = `${rect.top - 60}px`; returnToPool(emojiEl, 1500); }
-        function showFloatingScore(amount, startElement) { const scoreEl = getFromPool('floatingScores'); if (!scoreEl || !startElement) return; scoreEl.innerText = `+${amount}`; const rect = startElement.getBoundingClientRect(); scoreEl.style.top = `${rect.top - 20}px`; scoreEl.style.left = `${rect.left + (rect.width / 2) - 15}px`; returnToPool(scoreEl, 1500); }
-        function showBonusMessage(message) { const messageEl = getFromPool('bonusMessages'); if (!messageEl) return; messageEl.innerHTML = message; messageEl.style.top = `30%`; returnToPool(messageEl, 1500); }
-        function createSparkles(targetBlock) { const rect = targetBlock.element.getBoundingClientRect(); let sparklesToCreate = 15; for (const sparkle of pools.sparkles) { if (sparklesToCreate > 0 && sparkle.classList.contains('hidden')) { sparkle.classList.remove('hidden'); const startX = rect.left + Math.random() * rect.width; const startY = rect.top; sparkle.style.left = `${startX}px`; sparkle.style.top = `${startY}px`; const randomX = (Math.random() - 0.5) * 150; const randomY = (Math.random() - 0.5) * 150; sparkle.style.setProperty('--x', randomX + 'px'); sparkle.style.setProperty('--y', randomY + 'px'); returnToPool(sparkle, 800); sparklesToCreate--; } } }
-        function createFloatingStars() { if (DOMElements.floatingElementsBg.children.length > 0) return; const starCount = 8; for (let i = 0; i < starCount; i++) { const star = document.createElement('img'); star.src = 'star.png'; star.classList.add('floating-star'); star.style.setProperty('--start-x', `${Math.random() * 100}vw`); star.style.setProperty('--start-y', `${Math.random() * 70}vh`); star.style.setProperty('--end-x', `${Math.random() * 100}vw`); star.style.setProperty('--end-y', `${Math.random() * 100}vh`); const size = Math.random() * 25 + 15; star.style.width = `${size}px`; star.style.height = `${size}px`; star.style.animationDuration = `${Math.random() * 15 + 20}s, ${Math.random() * 3 + 2}s`; star.style.animationDelay = `${Math.random() * 25}s`; DOMElements.floatingElementsBg.appendChild(star); } }
-        function handleVisibilityChange() { if (document.hidden && state.isPlaying && !state.isPaused) { togglePause(); } }
-        function showToast(message) { const el = document.getElementById('toast-notification'); el.textContent = message; el.classList.add('show'); setTimeout(() => { el.classList.remove('show'); }, 2500); }
-        function updateAllUIs() { if(DOMElements.sfxToggleImg) { DOMElements.sfxToggleImg.src = state.areSfxMuted ? 'mute.png' : 'unmute.png'; DOMElements.musicToggleImg.src = state.isMusicMuted ? 'off_music.png' : 'music.png'; DOMElements.musicTogglePause.classList.toggle('state-on', !state.isMusicMuted); DOMElements.musicTogglePause.classList.toggle('state-off', state.isMusicMuted); DOMElements.sfxTogglePause.classList.toggle('state-on', !state.areSfxMuted); DOMElements.sfxTogglePause.classList.toggle('state-off', state.areSfxMuted); DOMElements.musicToggleSettings.classList.toggle('on', !state.isMusicMuted); DOMElements.musicToggleSettings.classList.toggle('off', state.isMusicMuted); DOMElements.sfxToggleSettings.classList.toggle('on', !state.areSfxMuted); DOMElements.sfxToggleSettings.classList.toggle('off', state.areSfxMuted); DOMElements.musicVolumeSlider.value = state.musicVolume; DOMElements.sfxVolumeSlider.value = state.sfxVolume; } }
-        function toggleMusicMute() { playSound(Audio.uiClickSound); state.isMusicMuted = !state.isMusicMuted; applyMusicSettings(); }
-        function toggleSfxMute() { playSound(Audio.uiClickSound); state.areSfxMuted = !state.areSfxMuted; applySfxSettings(); }
-        function applyMusicSettings() { if (state.isMusicMuted || state.musicVolume === 0) { Audio.backgroundMusic.volume = 0; Audio.backgroundMusic.muted = true; Audio.backgroundMusic.pause(); } else { Audio.backgroundMusic.volume = state.musicVolume; Audio.backgroundMusic.muted = false; if (state.isPlaying && !state.isPaused) { Audio.backgroundMusic.play().catch(() => {}); } } updateAllUIs(); }
-        function applySfxSettings() { const finalSfxVolume = state.areSfxMuted ? 0 : state.sfxVolume; Audio.allSfx.filter(s => s.id !== 'backgroundMusic').forEach(sound => { if (sound) sound.volume = finalSfxVolume; }); updateAllUIs(); }
-        function playSound(sound) { if (sound && !state.areSfxMuted) { sound.volume = state.sfxVolume; sound.currentTime = 0; sound.play().catch(() => {}); } }
-        function togglePause() { if (!state.isPlaying || state.gameFrozenForCelebration) return; state.isPaused = !state.isPaused; if (state.isPaused) { cancelAnimationFrame(state.animationFrameId); Audio.backgroundMusic.pause(); DOMElements.pauseScoreDisplay.innerText = ` ${state.score}`; DOMElements.pauseBestScoreDisplay.innerText = ` ${state.bestScore}`; updateAllUIs(); DOMElements.pauseOverlay.classList.remove('hidden'); DOMElements.playPauseImg.src = 'play.png'; } else { state.lastTimestamp = performance.now(); state.animationFrameId = requestAnimationFrame(animate); if (!state.isMusicMuted) Audio.backgroundMusic.play().catch(() => {}); DOMElements.pauseOverlay.classList.add('hidden'); DOMElements.playPauseImg.src = 'pause.png'; } }
-        function addBlock(isBase = false) { const prevBlock = state.blocks.length > 0 ? state.blocks[state.blocks.length - 1] : null; const newBlockData = { element: document.createElement('div') }; newBlockData.element.classList.add('block'); newBlockData.y = CONFIG.STACK_START_TOP_VH - (state.blocks.length * CONFIG.BLOCK_HEIGHT_VH); newBlockData.element.style.top = `${newBlockData.y}vh`; const colorIndex = Math.floor(Math.random() * CONFIG.COLORS.length); if (!isBase && DOMElements.animatedBg) DOMElements.animatedBg.style.backgroundImage = CONFIG.BACKGROUND_GRADIENTS[colorIndex]; const blockColor = (state.blocks.length === 0) ? '#6B3E27' : CONFIG.COLORS[colorIndex]; newBlockData.element.style.backgroundColor = blockColor; newBlockData.color = blockColor; if (isBase) { newBlockData.width = DOMElements.gameWrapper.clientWidth * 0.48; newBlockData.x = (DOMElements.gameWrapper.clientWidth / 2) - (newBlockData.width / 2); newBlockData.speed = 0; newBlockData.element.classList.add('stacked'); } else { newBlockData.width = prevBlock.width; newBlockData.x = Math.random() > 0.5 ? -newBlockData.width : DOMElements.gameWrapper.clientWidth; newBlockData.direction = newBlockData.x > 0 ? -1 : 1; const stackCount = state.blocks.length - CONFIG.BASE_BLOCK_COUNT; const speedIncrease = Math.min(stackCount * 4, CONFIG.MAX_SPEED - CONFIG.INITIAL_SPEED); newBlockData.speed = CONFIG.INITIAL_SPEED + speedIncrease; state.currentBlock = newBlockData; state.isPlacing = false; } newBlockData.element.style.width = `${newBlockData.width}px`; newBlockData.element.style.transform = `translateX(${newBlockData.x}px)`; state.blocks.push(newBlockData); DOMElements.container.appendChild(newBlockData.element); }
-        function animate(timestamp) { if (!state.isPlaying || state.isPaused || state.gameFrozenForCelebration) return; const deltaTime = timestamp - state.lastTimestamp; state.lastTimestamp = timestamp; if (state.currentBlock) { const block = state.currentBlock; const distance = block.direction * block.speed * (deltaTime / 1000); block.x += distance; const gameWidth = DOMElements.gameWrapper.clientWidth; if (block.x + block.width > gameWidth) { block.x = gameWidth - block.width; block.direction = -1; } if (block.x < 0) { block.x = 0; block.direction = 1; } block.element.style.transform = `translateX(${block.x}px)`; } state.animationFrameId = requestAnimationFrame(animate); }
-        function handleNewBestScore(followUpMessage = null) { state.gameFrozenForCelebration = true; DOMElements.newBestBanner.classList.remove('hidden'); DOMElements.newBestBanner.classList.add('show'); playSound(Audio.fanfareSound); DOMElements.scoreDisplay.classList.add('best-glow'); if (typeof confetti === 'function') confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 } }); setTimeout(() => { DOMElements.newBestBanner.classList.remove('show'); DOMElements.newBestBanner.classList.add('hidden'); DOMElements.scoreDisplay.classList.remove('best-glow'); if (followUpMessage) { setTimeout(() => { showBonusMessage(followUpMessage); }, 100); } state.gameFrozenForCelebration = false; state.lastTimestamp = performance.now(); state.animationFrameId = requestAnimationFrame(animate); }, 1200); }
-        function placeBlock() { if (!state.currentBlock || state.isPlacing) return; state.isPlacing = true; if (!state.hasTappedOnce) { DOMElements.tapToStackMessage.classList.add('fade-out'); setTimeout(() => DOMElements.tapToStackMessage.classList.add('hidden'), 300); state.hasTappedOnce = true; } cancelAnimationFrame(state.animationFrameId); const prevBlock = state.blocks[state.blocks.length - 2]; const newX = Math.max(state.currentBlock.x, prevBlock.x); const newWidth = Math.min(state.currentBlock.x + state.currentBlock.width, prevBlock.x + prevBlock.width) - newX; let perfectMessageToShow = null; if (newWidth <= 0.1) { if (Audio.fallSound && !state.areSfxMuted) { const originalVolume = state.sfxVolume; Audio.fallSound.volume = Math.min(1.0, originalVolume * 1.5); Audio.fallSound.currentTime = 0; Audio.fallSound.play().catch(() => {}); setTimeout(() => { if(Audio.fallSound) Audio.fallSound.volume = originalVolume; }, 1000); } showEmojiFace('sad', state.currentBlock.element); state.currentBlock.element.classList.add('falling'); state.currentBlock.element.style.transform = `translateY(110vh) rotateZ(30deg)`; state.currentBlock.element.style.opacity = '0'; gameOver(); return; } playSound(Audio.clickSound); const isPerfect = (prevBlock.width - newWidth) < CONFIG.PERFECT_MATCH_THRESHOLD; if (isPerfect) { state.perfectStackCombo++; state.totalSessionPerfectStacks++; let basePoints = 3; let bonusPoints = 0; if (state.perfectStackCombo >= 5) { bonusPoints = 3; } else if (state.perfectStackCombo >= 3) { bonusPoints = state.perfectStackCombo - 2; } const totalPoints = basePoints + bonusPoints; state.score += totalPoints; let popupMessage = ''; if (state.perfectStackCombo >= 3) { playSound(Audio.comboSound); popupMessage = `💥 Combo x${state.perfectStackCombo}!<br>+${totalPoints} Bonus`; } else { playSound(Audio.perfectSound); popupMessage = `Perfect! +${totalPoints}`; } perfectMessageToShow = popupMessage; createSparkles(state.currentBlock); if (state.perfectStackCombo >= 5) showEmojiFace('chef', state.currentBlock.element); else if (state.perfectStackCombo >= 2) showEmojiFace('cool', state.currentBlock.element); else showEmojiFace('happy', state.currentBlock.element); const randomDripColor = CONFIG.DRIP_COLORS[Math.floor(Math.random() * CONFIG.DRIP_COLORS.length)]; state.currentBlock.element.style.setProperty('--drip-main-color', randomDripColor); state.currentBlock.element.style.setProperty('--drip-shadow-color', adjustColor(randomDripColor, -20)); state.currentBlock.element.classList.add('perfect-stack', 'block-glow'); setTimeout(() => { if (state.currentBlock && state.currentBlock.element) state.currentBlock.element.classList.remove('block-glow'); }, 800); state.currentBlock.width = prevBlock.width; state.currentBlock.x = prevBlock.x; } else { state.score++; showFloatingScore(1, state.currentBlock.element); state.perfectStackCombo = 0; const fallingWidth = state.currentBlock.width - newWidth; if (fallingWidth > 0.1) { playSound(Audio.fallSound); const fallingBlock = document.createElement('div'); fallingBlock.classList.add('block', 'falling'); fallingBlock.style.backgroundColor = state.currentBlock.element.style.backgroundColor; fallingBlock.style.width = `${fallingWidth}px`; fallingBlock.style.top = `${state.currentBlock.y}vh`; fallingBlock.style.transform = `translateX(${(state.currentBlock.x < newX) ? state.currentBlock.x : (newX + newWidth)}px)`; DOMElements.container.appendChild(fallingBlock); setTimeout(() => { fallingBlock.style.transform += ` translateY(110vh) rotateZ(-30deg) rotateX(45deg)`; fallingBlock.style.opacity = '0'; }, 10); setTimeout(() => fallingBlock.remove(), 1200); } state.currentBlock.width = newWidth; state.currentBlock.x = newX; } state.currentBlock.element.style.width = `${state.currentBlock.width}px`; state.currentBlock.element.style.transform = `translateX(${state.currentBlock.x}px)`; state.currentBlock.element.classList.add('stacked'); DOMElements.scoreDisplay.innerText = state.score; DOMElements.scoreDisplay.classList.add('score-updated'); DOMElements.scoreDisplay.addEventListener('animationend', () => DOMElements.scoreDisplay.classList.remove('score-updated'), { once: true }); const isNewBestScore = state.score > state.bestScore && !state.recordBrokenThisGame; if (isNewBestScore) { state.recordBrokenThisGame = true; handleNewBestScore(perfectMessageToShow); } else if (perfectMessageToShow) { showBonusMessage(perfectMessageToShow); } if (state.score > state.bestScore) { state.bestScore = state.score; localStorage.setItem('bestScore', state.bestScore); } let cameraOffset = state.blocks.length > CONFIG.CAMERA_MOVE_THRESHOLD ? (state.blocks.length - CONFIG.CAMERA_MOVE_THRESHOLD) * CONFIG.BLOCK_HEIGHT_VH : 0; document.documentElement.style.setProperty('--camera-offset', `${cameraOffset}vh`); DOMElements.container.style.transform = `translateY(${cameraOffset}vh)`; addBlock(); if (!state.gameFrozenForCelebration) { state.lastTimestamp = performance.now(); state.animationFrameId = requestAnimationFrame(animate); } }
-        function animateCountUp(element, finalValue) { let startValue = 0; const duration = 800; const frameDuration = 1000 / 60; const totalFrames = Math.round(duration / frameDuration); const increment = finalValue / totalFrames; let currentFrame = 0; const counter = setInterval(() => { startValue += increment; currentFrame++; if (currentFrame >= totalFrames) { element.innerText = finalValue; clearInterval(counter); } else { element.innerText = Math.floor(startValue); } }, frameDuration); }
-        function adjustColor(hex, percent) { hex = hex.replace('#', ''); let r = parseInt(hex.substring(0, 2), 16), g = parseInt(hex.substring(2, 4), 16), b = parseInt(hex.substring(4, 6), 16); const amount = Math.round(2.55 * percent); r = Math.max(0, Math.min(255, r + amount)); g = Math.max(0, Math.min(255, g + amount)); b = Math.max(0, Math.min(255, b + amount)); return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`; }
-        function gameOver() { DOMElements.body.classList.remove('game-active'); DOMElements.body.classList.add('game-over'); DOMElements.gameWrapper.style.backgroundImage = "url('home_screen.png')"; state.isGameOver = true; state.isPlaying = false; cancelAnimationFrame(state.animationFrameId); Audio.backgroundMusic.pause(); setTimeout(() => playSound(Audio.gameOverSound), 400); DOMElements.container.classList.add('game-over'); if (state.score > state.bestScore) { state.bestScore = state.score; localStorage.setItem('bestScore', state.bestScore); } if(state.totalSessionPerfectStacks > 0) { DOMElements.perfectStackStatLine.classList.add('has-perfects'); } setTimeout(() => { DOMElements.newBestScoreEmoji.style.display = state.recordBrokenThisGame ? 'inline-block' : 'none'; DOMElements.newBestScoreEmoji.classList.toggle('hidden', !state.recordBrokenThisGame); DOMElements.gameWrapper.classList.add('game-over-active'); DOMElements.uiTop.classList.add('hidden'); DOMElements.menu.classList.remove('hidden'); DOMElements.gameOverBox.classList.remove('hidden'); DOMElements.gameOverBox.classList.add('active'); setTimeout(() => { animateCountUp(DOMElements.finalScoreValueNew, state.score); animateCountUp(DOMElements.bestScoreFinalNew, state.bestScore); animateCountUp(DOMElements.perfectStacksFinalNew, state.totalSessionPerfectStacks); }, 400); }, 800); }
-        function openSettings() { updateAllUIs(); DOMElements.settingsOverlay.classList.remove('hidden'); }
-        function closeSettings() { saveAudioSettings(); DOMElements.settingsOverlay.classList.add('hidden'); }
-        function saveAudioSettings() { localStorage.setItem('isMusicMuted', state.isMusicMuted); localStorage.setItem('areSfxMuted', state.areSfxMuted); localStorage.setItem('musicVolume', state.musicVolume); localStorage.setItem('sfxVolume', state.sfxVolume); showToast("Settings Saved!"); }
-        function loadAudioSettings() { state.isMusicMuted = localStorage.getItem('isMusicMuted') === 'true'; state.areSfxMuted = localStorage.getItem('areSfxMuted') === 'true'; const storedMusicVol = parseFloat(localStorage.getItem('musicVolume')); state.musicVolume = !isNaN(storedMusicVol) ? storedMusicVol : 0.5; const storedSfxVol = parseFloat(localStorage.getItem('sfxVolume')); state.sfxVolume = !isNaN(storedSfxVol) ? storedSfxVol : 1.0; applyMusicSettings(); applySfxSettings(); }
-        function loadBestScore() { state.bestScore = parseInt(localStorage.getItem('bestScore')) || 0; }
-        
-        function startGame() {
-            DOMElements.body.classList.remove('game-over');
-            DOMElements.body.classList.add('game-active');
-            DOMElements.gameWrapper.style.backgroundImage = "url('game_background.png')";
-            Object.assign(state, { isPlaying: true, isGameOver: false, score: 0, perfectStackCombo: 0, totalSessionPerfectStacks: 0, hasTappedOnce: false, isPlacing: false, lastTimestamp: performance.now(), blocks: [], currentBlock: null, isPaused: false, recordBrokenThisGame: false, gameFrozenForCelebration: false });
-            if(DOMElements.perfectStackStatLine) DOMElements.perfectStackStatLine.classList.remove('has-perfects');
-            DOMElements.uiTop.classList.remove('hidden'); 
-            DOMElements.gameWrapper.classList.remove('game-over-active');
-            if(DOMElements.pauseOverlay) DOMElements.pauseOverlay.classList.add('hidden'); 
-            DOMElements.container.innerHTML = ''; 
-            state.blocks = [];
-            DOMElements.container.classList.remove('game-over');
-            if(DOMElements.gameOverBox) { DOMElements.gameOverBox.classList.remove('active'); DOMElements.gameOverBox.classList.add('hidden'); }
-            DOMElements.scoreDisplay.innerText = state.score; 
-            if(DOMElements.menu) DOMElements.menu.classList.add('hidden');
-            DOMElements.tapToStackMessage.classList.remove('hidden', 'fade-out');
-            document.documentElement.style.setProperty('--camera-offset', '0vh'); 
-            DOMElements.container.style.transform = `translateY(0vh)`;
-            applyMusicSettings();
-            for (let i = 0; i < CONFIG.BASE_BLOCK_COUNT; i++) addBlock(true);
-            state.initialBlockWidth = DOMElements.gameWrapper.clientWidth * 0.48;
-            addBlock();
-            cancelAnimationFrame(state.animationFrameId);
-            state.animationFrameId = requestAnimationFrame(animate);
-        }
-
-        function simulateLoading() {
-            const progressBar = document.getElementById('progress-bar');
-            const progressText = document.getElementById('progress-text');
-            let progress = 0; const intervalTime = 20; const totalTime = 1500; const increment = (intervalTime / totalTime) * 100;
-            const loadingInterval = setInterval(() => {
-                progress += increment;
-                if (progress >= 100) { progress = 100; clearInterval(loadingInterval); setTimeout(onLoadingComplete, 200); }
-                progressBar.style.width = `${progress}%`;
-                progressText.innerText = `${Math.round(progress)}%`;
-            }, intervalTime);
-        }
-
-        function onLoadingComplete() {
-            DOMElements.loadingOverlay.style.opacity = '0';
-            setTimeout(() => { DOMElements.loadingOverlay.classList.add('hidden'); }, 500);
-            initGame();
-        }
-
-        function initGame() {
-            initPools();
-            createFloatingStars();
-            loadBestScore();
-            loadAudioSettings();
-            window.addEventListener('pointerdown', (event) => { if (state.isPlaying && !state.isPaused && !state.isGameOver && !state.gameFrozenForCelebration) { if (!event.target.closest('.icon-container, #play-pause-control, .footer-action-btn, #replay-button-gameover, #resume-button')) { placeBlock(); } } });
-            DOMElements.playPauseControl.addEventListener('click', togglePause);
-            if(DOMElements.replayButtonGameOver) DOMElements.replayButtonGameOver.addEventListener('click', startGame);
-            if(DOMElements.restartButtonPause) DOMElements.restartButtonPause.addEventListener('click', startGame);
-            if(DOMElements.resumeButton) DOMElements.resumeButton.addEventListener('click', togglePause);
-            if(DOMElements.musicTogglePause) DOMElements.musicTogglePause.addEventListener('click', toggleMusicMute);
-            if(DOMElements.sfxTogglePause) DOMElements.sfxTogglePause.addEventListener('click', toggleSfxMute);
-            if(DOMElements.musicToggleSettings) DOMElements.musicToggleSettings.addEventListener('click', toggleMusicMute);
-            if(DOMElements.sfxToggleSettings) DOMElements.sfxToggleSettings.addEventListener('click', toggleSfxMute);
-            if(DOMElements.saveSettingsBtn) DOMElements.saveSettingsBtn.addEventListener('click', closeSettings);
-            startGame();
-        }
-
-        function init() {
-            DOMElements.initialPlayBtn.addEventListener('click', () => {
-                DOMElements.startScreen.style.opacity = '0';
-                setTimeout(() => { DOMElements.startScreen.classList.add('hidden'); }, 500);
-                DOMElements.loadingOverlay.classList.remove('hidden');
-                
-                let audioUnlocked = false;
-                function unlockAudio() {
-                    if (audioUnlocked) return;
-                    Audio.allSfx.forEach(audio => { audio.play().then(() => { audio.pause(); audio.currentTime = 0; }).catch(() => {}); });
-                    audioUnlocked = true;
+        (function() {
+            'use strict';
+            
+            document.addEventListener('DOMContentLoaded', () => {
+                const hamburgerBtn = document.getElementById('hamburger-btn');
+                const navLinks = document.getElementById('nav-links');
+                if (hamburgerBtn && navLinks) {
+                    hamburgerBtn.addEventListener('click', () => {
+                        navLinks.classList.toggle('active');
+                    });
                 }
-                unlockAudio();
-                simulateLoading();
-            }, { once: true });
-        }
-        
-        init();
+                const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+                const allLinks = document.querySelectorAll('#nav-links a');
+                allLinks.forEach(link => {
+                    const linkPage = link.getAttribute('href').split('/').pop() || 'index.html';
+                    if (currentPage.toLowerCase() === linkPage.toLowerCase()) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            });
 
-    })();
+            const CONFIG = { INITIAL_SPEED: 130, MAX_SPEED: 180, BASE_BLOCK_COUNT: 6, BLOCK_HEIGHT_VH: 3.4, STACK_START_TOP_VH: 97, CAMERA_MOVE_THRESHOLD: 12, PERFECT_MATCH_THRESHOLD: 2, COLORS: ['#F7E7CE', '#8b4513', '#F47983', '#62B6F4', '#fffacd', '#FFE150', '#FFBD59'], DRIP_COLORS: ['#f3e5ab', '#f78fa7', '#b0c4de', '#fff44f', '#bdfcc9'], BACKGROUND_GRADIENTS: ['linear-gradient(#6a89cc, #b8e994, #6a89cc)', 'linear-gradient(#82ccdd, #b8e994, #82ccdd)', 'linear-gradient(#ffbe76, #ff7979, #ffbe76)', 'linear-gradient(#f0932b, #ffb6c1, #f0932b)', 'linear-gradient(#7ed6df, #be2edd, #7ed6df)', 'linear-gradient(#f9ca24, #a29bfe, #f9ca24)'], EMOJIS: { happy: '☺️', cool: '😎', chef: '👨‍🍳', sad: '😥' }, POOL_SIZES: { SPARKLES: 20, FLOATING_SCORES: 5, EMOJIS: 5, BONUS_MESSAGES: 3 } };
+            const DOMElements = { body: document.body, gameWrapper: document.getElementById('game-wrapper'), startScreen: document.getElementById('start-screen'), initialPlayBtn: document.getElementById('initial-play-btn'), loadingOverlay: document.getElementById('loading-overlay'), progressBar: document.getElementById('progress-bar'), progressText: document.getElementById('progress-text'), container: document.getElementById('container'), scoreDisplay: document.getElementById('score'), uiTop: document.getElementById('ui-top'), menu: document.getElementById('menu'), gameOverBox: document.getElementById('game-over-box'), finalScoreValueNew: document.getElementById('final-score-value-new'), bestScoreFinalNew: document.getElementById('best-score-final-new'), perfectStacksFinalNew: document.getElementById('perfect-stacks-final-new'), perfectStackStatLine: document.querySelector('.perfect-stack-stat-gameover'), replayButtonGameOver: document.getElementById('replay-button-gameover'), floatingElementsBg: document.getElementById('floating-elements-bg'), animatedBg: document.getElementById('animated-gradient-bg'), tapToStackMessage: document.getElementById('tap-to-stack-message'), newBestScoreEmoji: document.getElementById('new-best-score-emoji'), newBestBanner: document.getElementById('new-best-banner'), playPauseControl: document.getElementById('play-pause-control'), playPauseImg: document.getElementById('play-pause-img'), pauseOverlay: document.getElementById('pause-overlay'), resumeButton: document.getElementById('resume-button'), pauseScoreDisplay: document.getElementById('pause-score'), pauseBestScoreDisplay: document.getElementById('pause-best-score'), restartButtonPause: document.getElementById('restart-button-pause'), sfxTogglePause: document.getElementById('sfx-toggle-pause'), musicTogglePause: document.getElementById('music-toggle-pause'), sfxToggleImg: document.getElementById('sfx-toggle-img'), musicToggleImg: document.getElementById('music-toggle-img'), settingsOverlay: document.getElementById('settings-overlay'), musicToggleSettings: document.getElementById('music-toggle-settings'), sfxToggleSettings: document.getElementById('sfx-toggle-settings'), musicVolumeSlider: document.getElementById('music-volume-slider'), sfxVolumeSlider: document.getElementById('sfx-volume-slider'), saveSettingsBtn: document.getElementById('save-settings-btn'), };
+            const Audio = { backgroundMusic: document.getElementById('backgroundMusic'), allSfx: Array.from(document.querySelectorAll('audio')), };
+            Audio.playClickSound = document.getElementById('playClickSound'); Audio.gameOverSound = document.getElementById('gameOverSound'); Audio.perfectSound = document.getElementById('perfectSound'); Audio.fallSound = document.getElementById('fallSound'); Audio.clickSound = document.getElementById('clickSound'); Audio.uiClickSound = document.getElementById('uiClickSound'); Audio.fanfareSound = document.getElementById('fanfareSound'); Audio.comboSound = document.getElementById('comboSound');
+            let state = { isPlaying: false, score: 0, perfectStackCombo: 0, blocks: [], currentBlock: null, animationFrameId: null, totalSessionPerfectStacks: 0, initialBlockWidth: 0, isPaused: false, hasTappedOnce: false, isPlacing: false, lastTimestamp: 0, isMusicMuted: false, areSfxMuted: false, musicVolume: 0.5, sfxVolume: 1.0, bestScore: 0, recordBrokenThisGame: false, gameFrozenForCelebration: false, backButtonPressedOnce: false, isGameOver: false };
+            const pools = { sparkles: [], floatingScores: [], emojis: [], bonusMessages: [] };
+            function createPool(poolName, className, count) { for (let i = 0; i < count; i++) { const el = document.createElement('div'); el.className = className + ' hidden'; DOMElements.gameWrapper.appendChild(el); pools[poolName].push(el); } }
+            function getFromPool(poolName) { const pool = pools[poolName]; for (const item of pool) { if (item.classList.contains('hidden')) { item.classList.remove('hidden'); return item; } } return null; }
+            function returnToPool(element, timeout = 0) { if (!element) return; setTimeout(() => { element.className = element.classList[0] + ' hidden'; element.style = ''; }, timeout); }
+            function initPools() { createPool('sparkles', 'sparkle', CONFIG.POOL_SIZES.SPARKLES); createPool('floatingScores', 'floating-score', CONFIG.POOL_SIZES.FLOATING_SCORES); createPool('emojis', 'emoji-face', CONFIG.POOL_SIZES.EMOJIS); createPool('bonusMessages', 'bonus-message', CONFIG.POOL_SIZES.BONUS_MESSAGES); }
+            function showEmojiFace(type, targetBlockElement) { const emojiEl = getFromPool('emojis'); if (!emojiEl || !CONFIG.EMOJIS[type] || !targetBlockElement) return; emojiEl.textContent = CONFIG.EMOJIS[type]; const rect = targetBlockElement.getBoundingClientRect(); emojiEl.style.left = `${rect.left + (rect.width / 2) - 20}px`; emojiEl.style.top = `${rect.top - 60}px`; returnToPool(emojiEl, 1500); }
+            function showFloatingScore(amount, startElement) { const scoreEl = getFromPool('floatingScores'); if (!scoreEl || !startElement) return; scoreEl.innerText = `+${amount}`; const rect = startElement.getBoundingClientRect(); scoreEl.style.top = `${rect.top - 20}px`; scoreEl.style.left = `${rect.left + (rect.width / 2) - 15}px`; returnToPool(scoreEl, 1500); }
+            function showBonusMessage(message) { const messageEl = getFromPool('bonusMessages'); if (!messageEl) return; messageEl.innerHTML = message; messageEl.style.top = `30%`; returnToPool(messageEl, 1500); }
+            function createSparkles(targetBlock) { const rect = targetBlock.element.getBoundingClientRect(); let sparklesToCreate = 15; for (const sparkle of pools.sparkles) { if (sparklesToCreate > 0 && sparkle.classList.contains('hidden')) { sparkle.classList.remove('hidden'); const startX = rect.left + Math.random() * rect.width; const startY = rect.top; sparkle.style.left = `${startX}px`; sparkle.style.top = `${startY}px`; const randomX = (Math.random() - 0.5) * 150; const randomY = (Math.random() - 0.5) * 150; sparkle.style.setProperty('--x', randomX + 'px'); sparkle.style.setProperty('--y', randomY + 'px'); returnToPool(sparkle, 800); sparklesToCreate--; } } }
+            function createFloatingStars() { if (DOMElements.floatingElementsBg.children.length > 0) return; const starCount = 8; for (let i = 0; i < starCount; i++) { const star = document.createElement('img'); star.src = 'star.png'; star.classList.add('floating-star'); star.style.setProperty('--start-x', `${Math.random() * 100}vw`); star.style.setProperty('--start-y', `${Math.random() * 70}vh`); star.style.setProperty('--end-x', `${Math.random() * 100}vw`); star.style.setProperty('--end-y', `${Math.random() * 100}vh`); const size = Math.random() * 25 + 15; star.style.width = `${size}px`; star.style.height = `${size}px`; star.style.animationDuration = `${Math.random() * 15 + 20}s, ${Math.random() * 3 + 2}s`; star.style.animationDelay = `${Math.random() * 25}s`; DOMElements.floatingElementsBg.appendChild(star); } }
+            function handleVisibilityChange() { if (document.hidden && state.isPlaying && !state.isPaused) { togglePause(); } }
+            function showToast(message) { const el = document.getElementById('toast-notification'); el.textContent = message; el.classList.add('show'); setTimeout(() => { el.classList.remove('show'); }, 2500); }
+            function updateAllUIs() { if(DOMElements.sfxToggleImg) { DOMElements.sfxToggleImg.src = state.areSfxMuted ? 'mute.png' : 'unmute.png'; DOMElements.musicToggleImg.src = state.isMusicMuted ? 'off_music.png' : 'music.png'; DOMElements.musicTogglePause.classList.toggle('state-on', !state.isMusicMuted); DOMElements.musicTogglePause.classList.toggle('state-off', state.isMusicMuted); DOMElements.sfxTogglePause.classList.toggle('state-on', !state.areSfxMuted); DOMElements.sfxTogglePause.classList.toggle('state-off', state.areSfxMuted); DOMElements.musicToggleSettings.classList.toggle('on', !state.isMusicMuted); DOMElements.musicToggleSettings.classList.toggle('off', state.isMusicMuted); DOMElements.sfxToggleSettings.classList.toggle('on', !state.areSfxMuted); DOMElements.sfxToggleSettings.classList.toggle('off', state.areSfxMuted); DOMElements.musicVolumeSlider.value = state.musicVolume; DOMElements.sfxVolumeSlider.value = state.sfxVolume; } }
+            function toggleMusicMute() { playSound(Audio.uiClickSound); state.isMusicMuted = !state.isMusicMuted; applyMusicSettings(); }
+            function toggleSfxMute() { playSound(Audio.uiClickSound); state.areSfxMuted = !state.areSfxMuted; applySfxSettings(); }
+            function applyMusicSettings() { if (state.isMusicMuted || state.musicVolume === 0) { Audio.backgroundMusic.volume = 0; Audio.backgroundMusic.muted = true; Audio.backgroundMusic.pause(); } else { Audio.backgroundMusic.volume = state.musicVolume; Audio.backgroundMusic.muted = false; if (state.isPlaying && !state.isPaused) { Audio.backgroundMusic.play().catch(() => {}); } } updateAllUIs(); }
+            function applySfxSettings() { const finalSfxVolume = state.areSfxMuted ? 0 : state.sfxVolume; Audio.allSfx.filter(s => s.id !== 'backgroundMusic').forEach(sound => { if (sound) sound.volume = finalSfxVolume; }); updateAllUIs(); }
+            function playSound(sound) { if (sound && !state.areSfxMuted) { sound.volume = state.sfxVolume; sound.currentTime = 0; sound.play().catch(() => {}); } }
+            function togglePause() { if (!state.isPlaying || state.gameFrozenForCelebration) return; state.isPaused = !state.isPaused; if (state.isPaused) { cancelAnimationFrame(state.animationFrameId); Audio.backgroundMusic.pause(); DOMElements.pauseScoreDisplay.innerText = ` ${state.score}`; DOMElements.pauseBestScoreDisplay.innerText = ` ${state.bestScore}`; updateAllUIs(); DOMElements.pauseOverlay.classList.remove('hidden'); DOMElements.playPauseImg.src = 'play.png'; } else { state.lastTimestamp = performance.now(); state.animationFrameId = requestAnimationFrame(animate); if (!state.isMusicMuted) Audio.backgroundMusic.play().catch(() => {}); DOMElements.pauseOverlay.classList.add('hidden'); DOMElements.playPauseImg.src = 'pause.png'; } }
+            function addBlock(isBase = false) { const prevBlock = state.blocks.length > 0 ? state.blocks[state.blocks.length - 1] : null; const newBlockData = { element: document.createElement('div') }; newBlockData.element.classList.add('block'); newBlockData.y = CONFIG.STACK_START_TOP_VH - (state.blocks.length * CONFIG.BLOCK_HEIGHT_VH); newBlockData.element.style.top = `${newBlockData.y}vh`; const colorIndex = Math.floor(Math.random() * CONFIG.COLORS.length); if (!isBase && DOMElements.animatedBg) DOMElements.animatedBg.style.backgroundImage = CONFIG.BACKGROUND_GRADIENTS[colorIndex]; const blockColor = (state.blocks.length === 0) ? '#6B3E27' : CONFIG.COLORS[colorIndex]; newBlockData.element.style.backgroundColor = blockColor; newBlockData.color = blockColor; if (isBase) { newBlockData.width = DOMElements.gameWrapper.clientWidth * 0.48; newBlockData.x = (DOMElements.gameWrapper.clientWidth / 2) - (newBlockData.width / 2); newBlockData.speed = 0; newBlockData.element.classList.add('stacked'); } else { newBlockData.width = prevBlock.width; newBlockData.x = Math.random() > 0.5 ? -newBlockData.width : DOMElements.gameWrapper.clientWidth; newBlockData.direction = newBlockData.x > 0 ? -1 : 1; const stackCount = state.blocks.length - CONFIG.BASE_BLOCK_COUNT; const speedIncrease = Math.min(stackCount * 4, CONFIG.MAX_SPEED - CONFIG.INITIAL_SPEED); newBlockData.speed = CONFIG.INITIAL_SPEED + speedIncrease; state.currentBlock = newBlockData; state.isPlacing = false; } newBlockData.element.style.width = `${newBlockData.width}px`; newBlockData.element.style.transform = `translateX(${newBlockData.x}px)`; state.blocks.push(newBlockData); DOMElements.container.appendChild(newBlockData.element); }
+            function animate(timestamp) { if (!state.isPlaying || state.isPaused || state.gameFrozenForCelebration) return; const deltaTime = timestamp - state.lastTimestamp; state.lastTimestamp = timestamp; if (state.currentBlock) { const block = state.currentBlock; const distance = block.direction * block.speed * (deltaTime / 1000); block.x += distance; const gameWidth = DOMElements.gameWrapper.clientWidth; if (block.x + block.width > gameWidth) { block.x = gameWidth - block.width; block.direction = -1; } if (block.x < 0) { block.x = 0; block.direction = 1; } block.element.style.transform = `translateX(${block.x}px)`; } state.animationFrameId = requestAnimationFrame(animate); }
+            function handleNewBestScore(followUpMessage = null) { state.gameFrozenForCelebration = true; DOMElements.newBestBanner.classList.remove('hidden'); DOMElements.newBestBanner.classList.add('show'); playSound(Audio.fanfareSound); DOMElements.scoreDisplay.classList.add('best-glow'); if (typeof confetti === 'function') confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 } }); setTimeout(() => { DOMElements.newBestBanner.classList.remove('show'); DOMElements.newBestBanner.classList.add('hidden'); DOMElements.scoreDisplay.classList.remove('best-glow'); if (followUpMessage) { setTimeout(() => { showBonusMessage(followUpMessage); }, 100); } state.gameFrozenForCelebration = false; state.lastTimestamp = performance.now(); state.animationFrameId = requestAnimationFrame(animate); }, 1200); }
+            function placeBlock() { if (!state.currentBlock || state.isPlacing) return; state.isPlacing = true; if (!state.hasTappedOnce) { DOMElements.tapToStackMessage.classList.add('fade-out'); setTimeout(() => DOMElements.tapToStackMessage.classList.add('hidden'), 300); state.hasTappedOnce = true; } cancelAnimationFrame(state.animationFrameId); const prevBlock = state.blocks[state.blocks.length - 2]; const newX = Math.max(state.currentBlock.x, prevBlock.x); const newWidth = Math.min(state.currentBlock.x + state.currentBlock.width, prevBlock.x + prevBlock.width) - newX; let perfectMessageToShow = null; if (newWidth <= 0.1) { if (Audio.fallSound && !state.areSfxMuted) { const originalVolume = state.sfxVolume; Audio.fallSound.volume = Math.min(1.0, originalVolume * 1.5); Audio.fallSound.currentTime = 0; Audio.fallSound.play().catch(() => {}); setTimeout(() => { if(Audio.fallSound) Audio.fallSound.volume = originalVolume; }, 1000); } showEmojiFace('sad', state.currentBlock.element); state.currentBlock.element.classList.add('falling'); state.currentBlock.element.style.transform = `translateY(110vh) rotateZ(30deg)`; state.currentBlock.element.style.opacity = '0'; gameOver(); return; } playSound(Audio.clickSound); const isPerfect = (prevBlock.width - newWidth) < CONFIG.PERFECT_MATCH_THRESHOLD; if (isPerfect) { state.perfectStackCombo++; state.totalSessionPerfectStacks++; let basePoints = 3; let bonusPoints = 0; if (state.perfectStackCombo >= 5) { bonusPoints = 3; } else if (state.perfectStackCombo >= 3) { bonusPoints = state.perfectStackCombo - 2; } const totalPoints = basePoints + bonusPoints; state.score += totalPoints; let popupMessage = ''; if (state.perfectStackCombo >= 3) { playSound(Audio.comboSound); popupMessage = `💥 Combo x${state.perfectStackCombo}!<br>+${totalPoints} Bonus`; } else { playSound(Audio.perfectSound); popupMessage = `Perfect! +${totalPoints}`; } perfectMessageToShow = popupMessage; createSparkles(state.currentBlock); if (state.perfectStackCombo >= 5) showEmojiFace('chef', state.currentBlock.element); else if (state.perfectStackCombo >= 2) showEmojiFace('cool', state.currentBlock.element); else showEmojiFace('happy', state.currentBlock.element); const randomDripColor = CONFIG.DRIP_COLORS[Math.floor(Math.random() * CONFIG.DRIP_COLORS.length)]; state.currentBlock.element.style.setProperty('--drip-main-color', randomDripColor); state.currentBlock.element.style.setProperty('--drip-shadow-color', adjustColor(randomDripColor, -20)); state.currentBlock.element.classList.add('perfect-stack', 'block-glow'); setTimeout(() => { if (state.currentBlock && state.currentBlock.element) state.currentBlock.element.classList.remove('block-glow'); }, 800); state.currentBlock.width = prevBlock.width; state.currentBlock.x = prevBlock.x; } else { state.score++; showFloatingScore(1, state.currentBlock.element); state.perfectStackCombo = 0; const fallingWidth = state.currentBlock.width - newWidth; if (fallingWidth > 0.1) { playSound(Audio.fallSound); const fallingBlock = document.createElement('div'); fallingBlock.classList.add('block', 'falling'); fallingBlock.style.backgroundColor = state.currentBlock.element.style.backgroundColor; fallingBlock.style.width = `${fallingWidth}px`; fallingBlock.style.top = `${state.currentBlock.y}vh`; fallingBlock.style.transform = `translateX(${(state.currentBlock.x < newX) ? state.currentBlock.x : (newX + newWidth)}px)`; DOMElements.container.appendChild(fallingBlock); setTimeout(() => { fallingBlock.style.transform += ` translateY(110vh) rotateZ(-30deg) rotateX(45deg)`; fallingBlock.style.opacity = '0'; }, 10); setTimeout(() => fallingBlock.remove(), 1200); } state.currentBlock.width = newWidth; state.currentBlock.x = newX; } state.currentBlock.element.style.width = `${state.currentBlock.width}px`; state.currentBlock.element.style.transform = `translateX(${state.currentBlock.x}px)`; state.currentBlock.element.classList.add('stacked'); DOMElements.scoreDisplay.innerText = state.score; DOMElements.scoreDisplay.classList.add('score-updated'); DOMElements.scoreDisplay.addEventListener('animationend', () => DOMElements.scoreDisplay.classList.remove('score-updated'), { once: true }); const isNewBestScore = state.score > state.bestScore && !state.recordBrokenThisGame; if (isNewBestScore) { state.recordBrokenThisGame = true; handleNewBestScore(perfectMessageToShow); } else if (perfectMessageToShow) { showBonusMessage(perfectMessageToShow); } if (state.score > state.bestScore) { state.bestScore = state.score; localStorage.setItem('bestScore', state.bestScore); } let cameraOffset = state.blocks.length > CONFIG.CAMERA_MOVE_THRESHOLD ? (state.blocks.length - CONFIG.CAMERA_MOVE_THRESHOLD) * CONFIG.BLOCK_HEIGHT_VH : 0; document.documentElement.style.setProperty('--camera-offset', `${cameraOffset}vh`); DOMElements.container.style.transform = `translateY(${cameraOffset}vh)`; addBlock(); if (!state.gameFrozenForCelebration) { state.lastTimestamp = performance.now(); state.animationFrameId = requestAnimationFrame(animate); } }
+            function animateCountUp(element, finalValue) { let startValue = 0; const duration = 800; const frameDuration = 1000 / 60; const totalFrames = Math.round(duration / frameDuration); const increment = finalValue / totalFrames; let currentFrame = 0; const counter = setInterval(() => { startValue += increment; currentFrame++; if (currentFrame >= totalFrames) { element.innerText = finalValue; clearInterval(counter); } else { element.innerText = Math.floor(startValue); } }, frameDuration); }
+            function adjustColor(hex, percent) { hex = hex.replace('#', ''); let r = parseInt(hex.substring(0, 2), 16), g = parseInt(hex.substring(2, 4), 16), b = parseInt(hex.substring(4, 6), 16); const amount = Math.round(2.55 * percent); r = Math.max(0, Math.min(255, r + amount)); g = Math.max(0, Math.min(255, g + amount)); b = Math.max(0, Math.min(255, b + amount)); return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`; }
+            function gameOver() { DOMElements.body.classList.remove('game-active'); DOMElements.body.classList.add('game-over'); DOMElements.gameWrapper.style.backgroundImage = "url('home_screen.png')"; state.isGameOver = true; state.isPlaying = false; cancelAnimationFrame(state.animationFrameId); Audio.backgroundMusic.pause(); setTimeout(() => playSound(Audio.gameOverSound), 400); DOMElements.container.classList.add('game-over'); if (state.score > state.bestScore) { state.bestScore = state.score; localStorage.setItem('bestScore', state.bestScore); } if(state.totalSessionPerfectStacks > 0) { DOMElements.perfectStackStatLine.classList.add('has-perfects'); } setTimeout(() => { DOMElements.newBestScoreEmoji.style.display = state.recordBrokenThisGame ? 'inline-block' : 'none'; DOMElements.newBestScoreEmoji.classList.toggle('hidden', !state.recordBrokenThisGame); DOMElements.gameWrapper.classList.add('game-over-active'); DOMElements.uiTop.classList.add('hidden'); DOMElements.menu.classList.remove('hidden'); DOMElements.gameOverBox.classList.remove('hidden'); DOMElements.gameOverBox.classList.add('active'); setTimeout(() => { animateCountUp(DOMElements.finalScoreValueNew, state.score); animateCountUp(DOMElements.bestScoreFinalNew, state.bestScore); animateCountUp(DOMElements.perfectStacksFinalNew, state.totalSessionPerfectStacks); }, 400); }, 800); }
+            function openSettings() { updateAllUIs(); DOMElements.settingsOverlay.classList.remove('hidden'); }
+            function closeSettings() { saveAudioSettings(); DOMElements.settingsOverlay.classList.add('hidden'); }
+            function saveAudioSettings() { localStorage.setItem('isMusicMuted', state.isMusicMuted); localStorage.setItem('areSfxMuted', state.areSfxMuted); localStorage.setItem('musicVolume', state.musicVolume); localStorage.setItem('sfxVolume', state.sfxVolume); showToast("Settings Saved!"); }
+            function loadAudioSettings() { state.isMusicMuted = localStorage.getItem('isMusicMuted') === 'true'; state.areSfxMuted = localStorage.getItem('areSfxMuted') === 'true'; const storedMusicVol = parseFloat(localStorage.getItem('musicVolume')); state.musicVolume = !isNaN(storedMusicVol) ? storedMusicVol : 0.5; const storedSfxVol = parseFloat(localStorage.getItem('sfxVolume')); state.sfxVolume = !isNaN(storedSfxVol) ? storedSfxVol : 1.0; applyMusicSettings(); applySfxSettings(); }
+            function loadBestScore() { state.bestScore = parseInt(localStorage.getItem('bestScore')) || 0; }
+            
+            function startGame() {
+                DOMElements.body.classList.remove('game-over');
+                DOMElements.body.classList.add('game-active');
+                DOMElements.gameWrapper.style.backgroundImage = "url('game_background.png')";
+                Object.assign(state, { isPlaying: true, isGameOver: false, score: 0, perfectStackCombo: 0, totalSessionPerfectStacks: 0, hasTappedOnce: false, isPlacing: false, lastTimestamp: performance.now(), blocks: [], currentBlock: null, isPaused: false, recordBrokenThisGame: false, gameFrozenForCelebration: false });
+                if(DOMElements.perfectStackStatLine) DOMElements.perfectStackStatLine.classList.remove('has-perfects');
+                DOMElements.uiTop.classList.remove('hidden'); 
+                DOMElements.gameWrapper.classList.remove('game-over-active');
+                if(DOMElements.pauseOverlay) DOMElements.pauseOverlay.classList.add('hidden'); 
+                DOMElements.container.innerHTML = ''; 
+                state.blocks = [];
+                DOMElements.container.classList.remove('game-over');
+                if(DOMElements.gameOverBox) { DOMElements.gameOverBox.classList.remove('active'); DOMElements.gameOverBox.classList.add('hidden'); }
+                DOMElements.scoreDisplay.innerText = state.score; 
+                if(DOMElements.menu) DOMElements.menu.classList.add('hidden');
+                DOMElements.tapToStackMessage.classList.remove('hidden', 'fade-out');
+                DOMElements.playPauseImg.src = 'pause.png';
+                document.documentElement.style.setProperty('--camera-offset', '0vh'); 
+                DOMElements.container.style.transform = `translateY(0vh)`;
+                applyMusicSettings();
+                for (let i = 0; i < CONFIG.BASE_BLOCK_COUNT; i++) addBlock(true);
+                state.initialBlockWidth = DOMElements.gameWrapper.clientWidth * 0.48;
+                addBlock();
+                cancelAnimationFrame(state.animationFrameId);
+                state.animationFrameId = requestAnimationFrame(animate);
+            }
+
+            function simulateLoading() {
+                const progressBar = document.getElementById('progress-bar');
+                const progressText = document.getElementById('progress-text');
+                let progress = 0; const intervalTime = 20; const totalTime = 1500; const increment = (intervalTime / totalTime) * 100;
+                const loadingInterval = setInterval(() => {
+                    progress += increment;
+                    if (progress >= 100) { progress = 100; clearInterval(loadingInterval); setTimeout(onLoadingComplete, 200); }
+                    progressBar.style.width = `${progress}%`;
+                    progressText.innerText = `${Math.round(progress)}%`;
+                }, intervalTime);
+            }
+
+            function onLoadingComplete() {
+                DOMElements.loadingOverlay.style.opacity = '0';
+                setTimeout(() => { DOMElements.loadingOverlay.classList.add('hidden'); }, 500);
+                initGame();
+            }
+
+            function initGame() {
+                initPools();
+                createFloatingStars();
+                loadBestScore();
+                loadAudioSettings();
+                window.addEventListener('pointerdown', (event) => { if (state.isPlaying && !state.isPaused && !state.isGameOver && !state.gameFrozenForCelebration) { if (!event.target.closest('.icon-container, #play-pause-control, .footer-action-btn, #replay-button-gameover, #resume-button')) { placeBlock(); } } });
+                DOMElements.playPauseControl.addEventListener('click', togglePause);
+                if(DOMElements.replayButtonGameOver) DOMElements.replayButtonGameOver.addEventListener('click', startGame);
+                if(DOMElements.restartButtonPause) DOMElements.restartButtonPause.addEventListener('click', startGame);
+                if(DOMElements.resumeButton) DOMElements.resumeButton.addEventListener('click', togglePause);
+                if(DOMElements.musicTogglePause) DOMElements.musicTogglePause.addEventListener('click', toggleMusicMute);
+                if(DOMElements.sfxTogglePause) DOMElements.sfxTogglePause.addEventListener('click', toggleSfxMute);
+                if(DOMElements.musicToggleSettings) DOMElements.musicToggleSettings.addEventListener('click', toggleMusicMute);
+                if(DOMElements.sfxToggleSettings) DOMElements.sfxToggleSettings.addEventListener('click', toggleSfxMute);
+                if(DOMElements.saveSettingsBtn) DOMElements.saveSettingsBtn.addEventListener('click', closeSettings);
+                startGame();
+            }
+
+            function init() {
+                if(DOMElements.initialPlayBtn) {
+                    DOMElements.initialPlayBtn.addEventListener('click', () => {
+                        DOMElements.startScreen.style.opacity = '0';
+                        setTimeout(() => { DOMElements.startScreen.classList.add('hidden'); }, 500);
+                        DOMElements.loadingOverlay.classList.remove('hidden');
+                        
+                        let audioUnlocked = false;
+                        function unlockAudio() {
+                            if (audioUnlocked) return;
+                            Audio.allSfx.forEach(audio => { audio.play().then(() => { audio.pause(); audio.currentTime = 0; }).catch(() => {}); });
+                            audioUnlocked = true;
+                        }
+                        unlockAudio();
+                        simulateLoading();
+                    }, { once: true });
+                }
+            }
+            
+            // Start everything
+            init();
+
+        })();
     </script>
 </body>
 </html>
