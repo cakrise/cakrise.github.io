@@ -197,6 +197,58 @@
         @keyframes popScaleBanner { 0% { transform: scale(0.5); opacity: 0; } 70% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
         #score.best-glow { animation: glow 1.2s ease-in-out; }
         @keyframes glow { 0%, 100% { text-shadow: 3px 3px 0px #ff3399; } 50% { text-shadow: 0 0 15px #ffffff, 3px 3px 0px #ffcc00; } }
+        /* ========= DESKTOP RESPONSIVE STYLES START ========= */
+
+@media (min-width: 769px) {
+
+    /* --- 1. Game Elements Size --- */
+    /* Make blocks feel taller on wide screens */
+    .block {
+        height: 4vh; 
+    }
+
+    /* Make fonts bigger */
+    #score {
+        font-size: 5rem;
+    }
+    #tap-to-stack-message {
+        font-size: 38px;
+    }
+    .bonus-message {
+        font-size: 42px;
+    }
+    .floating-score {
+        font-size: 32px;
+    }
+    .stat-line .stat-label {
+        font-size: 22px;
+    }
+    .stat-line .stat-value {
+        font-size: 34px;
+    }
+    #replay-button-gameover span {
+        font-size: 36px;
+    }
+
+    /* --- 2. Button and Icon Sizes --- */
+    #play-pause-control {
+        top: 30px;
+        right: 30px;
+    }
+    #play-pause-img {
+        width: 50px;
+        height: 50px;
+    }
+    .icon-container {
+        width: 60px;
+        height: 60px;
+    }
+    #replay-button-gameover img {
+        width: 45px;
+        height: 45px;
+    }
+}
+/* ========= DESKTOP RESPONSIVE STYLES END ========= */
     </style>
 </head>
 <body>
