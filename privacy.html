@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Cakrise Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; width: 100%; overflow-x: hidden; font-family: 'Nunito', sans-serif;}
+        body { display: flex; flex-direction: column; background-color: #f0f4f7; }
+        a { text-decoration: none; }
+        .navbar { width: 100%; height: 60px; background: #343a40; box-shadow: 0 4px 10px rgba(0,0,0,0.15); display: flex; justify-content: space-between; align-items: center; padding: 0 20px; flex-shrink: 0; z-index: 5000; }
+        .navbar-brand { display: flex; align-items: center; }
+        .navbar-logo { width: 40px; height: auto; margin-right: 12px; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2)); }
+        .navbar-title { font-family: 'Fredoka One', sans-serif; font-size: 28px; color: #fff; text-decoration: none; text-shadow: 0 0 5px #ff7979, 0 0 10px #ffbe76; }
+        .hamburger-menu { display: none; font-size: 30px; background: none; border: none; cursor: pointer; color: #fff; }
+        .nav-links { display: flex; align-items: center; height: 100%; }
+        .nav-links a { display: flex; align-items: center; height: 100%; margin-left: 10px; text-decoration: none; color: #adb5bd; font-weight: bold; font-size: 16px; padding: 0 15px; transition: all 0.3s ease; }
+        .nav-links a:hover { color: #fff; }
+        .nav-links a.active { color: #fff; background-color: #495057; }
+        @media (max-width: 768px) {
+            .navbar-title { font-size: 24px; }
+            .hamburger-menu { display: block; }
+            .nav-links { display: none; position: absolute; top: 60px; right: 0; background: #343a40; width: 100%; flex-direction: column; text-align: center; box-shadow: 0 5px 10px rgba(0,0,0,0.1); border-top: 1px solid #555; height: auto; }
+            .nav-links.active { display: flex; }
+            .nav-links a { margin: 0; padding: 15px 0; border-top: 1px solid #495057; width: 100%; }
+            .nav-links a.active { background-color: #212529; }
+        }
+        .content-page { background-color: #343a40; color: #adb5bd; flex-grow: 1; padding: 20px; text-align: center; overflow-y: auto; }
+        .content-container { max-width: 800px; margin: 20px auto; text-align: left; }
+        .content-container h1 { color: #fff; font-family: 'Fredoka One', sans-serif; margin-bottom: 20px; }
+        .content-container h2 { color: #fff; margin-top: 30px; margin-bottom: 10px; }
+        .content-container p { line-height: 1.7; }
+        .content-container a { color: #82ccdd; }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar-brand">
+            <img src="cake.png" alt="Logo" class="navbar-logo">
+            <a href="index.html" class="navbar-title">Cakrise</a>
+        </div>
+        <div class="navbar-menu-container">
+            <button id="hamburger-btn" class="hamburger-menu">☰</button>
+            <nav id="nav-links" class="nav-links">
+                <a href="index.html">Game</a>
+                <a href="about.html">About</a>
+                <a href="privacy.html">Privacy Policy</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="content-page">
+        <div class="content-container">
+            <h1>Privacy Policy</h1>
+            <p><strong>Last Updated: July 18, 2025</strong></p>
+            <p>We respect your privacy. This Privacy Policy explains how we handle information in our game, Cakrise.</p>
+            
+            <h2>Information We Do Not Collect</h2>
+            <p>We do not collect, store, or share any personally identifiable information from our players. This includes your name, email address, location, or device information.</p>
+
+            <h2>Third-Party Advertising</h2>
+            <p>Our website displays advertisements from third-party ad networks, such as Adsterra. These ad networks may use cookies and other technologies to collect non-personal information about your device and browsing activity to provide you with more relevant advertising.</p>
+            <p>We do not have access to or control over these third-party technologies. We encourage you to review the privacy policies of our advertising partners to understand their data collection practices.</p>
+
+            <h2>Changes to This Policy</h2>
+            <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
+        </div>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const navLinks = document.getElementById('nav-links');
+            if (hamburgerBtn && navLinks) {
+                hamburgerBtn.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                });
+            }
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const allLinks = document.querySelectorAll('#nav-links a');
+            allLinks.forEach(link => {
+                const linkPage = link.getAttribute('href').split('/').pop() || 'index.html';
+                if (currentPage.toLowerCase() === linkPage.toLowerCase()) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
