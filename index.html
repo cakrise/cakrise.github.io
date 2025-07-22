@@ -196,12 +196,27 @@
         @keyframes popScaleBanner { 0% { transform: scale(0.5); opacity: 0; } 70% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
         #score.best-glow { animation: glow 1.2s ease-in-out; }
         @keyframes glow { 0%, 100% { text-shadow: 3px 3px 0px #ff3399; } 50% { text-shadow: 0 0 15px #ffffff, 3px 3px 0px #ffcc00; } }
+        @media (min-width: 769px) {
+            .block { height: 4vh; }
+            #score { font-size: 5rem; }
+            #tap-to-stack-message { font-size: 38px; }
+            .bonus-message { font-size: 42px; }
+            .floating-score { font-size: 32px; }
+            .stat-line .stat-label { font-size: 22px; }
+            .stat-line .stat-value { font-size: 34px; }
+            #replay-button-gameover span { font-size: 36px; }
+            #play-pause-control { top: 30px; right: 30px; }
+            #play-pause-img { width: 50px; height: 50px; }
+            .icon-container { width: 60px; height: 60px; }
+            #replay-button-gameover img { width: 45px; height: 45px; }
+            #game-window { max-width: 450px; margin: 0 auto; border-left: 2px solid rgba(0,0,0,0.1); border-right: 2px solid rgba(0,0,0,0.1); box-shadow: 0 0 30px rgba(0,0,0,0.2); }
+        }
     </style>
 </head>
 <body>
     <header class="navbar">
         <div class="navbar-brand">
-            <img src="cake.png" alt="Cakrise Game Logo PNG" class="navbar-logo">
+            <img src="cakrise-game-logo.png" alt="Cakrise Game Logo PNG" class="navbar-logo">
             <a href="index.html" class="navbar-title">Cakrise</a>
         </div>
         <div class="navbar-menu-container">
@@ -216,11 +231,11 @@
 
     <main id="game-wrapper">
         <div id="start-screen" class="fullscreen-overlay">
-            <img src="cake.png" alt="Cakrise Cake Stack Game Title Logo" id="start-screen-logo">
+            <img src="cakrise-game-logo.png" alt="Cakrise Cake Stack Game Title Logo" id="start-screen-logo">
             <button id="initial-play-btn">Play Game</button>
         </div>
         <div id="loading-overlay" class="fullscreen-overlay hidden">
-            <img src="cake.png" alt="Loading Cakrise Game Assets" id="loading-logo">
+            <img src="cakrise-game-logo.png" alt="Loading Cakrise Game Assets" id="loading-logo">
             <p id="loading-text">Loading Game...</p>
             <div id="progress-bar-container"><div id="progress-bar"></div></div>
             <p id="progress-text">0%</p>
@@ -240,29 +255,38 @@
         <div id="game-window"><div id="container"></div></div>
         <div id="ui-top" class="hidden">
             <div id="score">0</div>
-            <div id="play-pause-control"><img src="pause.png" id="play-pause-img" alt="Play/Pause Control"></div>
+            <div id="play-pause-control"><img src="pause-button-icon.png" id="play-pause-img" alt="Pause or Resume Cakrise Game"></div>
         </div>
         <div id="tap-to-stack-message" class="hidden">Tap to Stack!<br>👆</div>
         <div id="new-best-banner" class="hidden"><span class="new-best-text">🎉 New<br>Best Score!</span></div>
         <div id="pause-overlay" class="hidden">
              <div class="pause-menu-box">
-                <div id="resume-button" class="main-action"><img src="play.png" alt="Resume"><span class="resume-text">Resume</span></div>
+                <div id="resume-button" class="main-action"><img src="play-button-icon.png" alt="Play Game or Resume Icon PNG"><span class="resume-text">Resume</span></div>
                 <div class="pause-stats"><div class="cake-text-theme your-score-text">Your Score:<span id="pause-score">0</span></div><div class="cake-text-theme best-score-text">Best Score:<span id="pause-best-score">0</span></div></div>
                 <div class="pause-audio-controls"><div id="music-toggle-pause" class="icon-container"><img src="music.png" id="music-toggle-img" alt="Music"></div><div id="sfx-toggle-pause" class="icon-container"><img src="unmute.png" id="sfx-toggle-img" alt="SFX"></div></div>
-                <div class="pause-footer-actions"><button id="restart-button-pause" class="footer-action-btn"><div class="icon-container"><img src="restart.png" alt="Restart"></div><span class="btn-text">Restart</span></button></div>
+                <div class="pause-footer-actions"><button id="restart-button-pause" class="footer-action-btn"><div class="icon-container"><img src="restart-game-icon.png" alt="Restart Game Icon PNG"></div><span class="btn-text">Restart</span></button></div>
             </div>
         </div>
         <div id="menu" class="hidden">
             <div id="game-over-box" class="hidden">
-                <img src="over.png" id="game-over-image" alt="Game Over Title PNG for Cakrise">
+                <img src="game-over-title-png.png" id="game-over-image" alt="Game Over PNG Transparent Image for Games">
                 <div id="game-over-stats-new"><div class="stat-line your-score-stat-gameover"><span class="stat-label">🎂 Final Score</span><span class="stat-value" id="final-score-value-new">0</span></div><div class="stat-line best-score-stat-gameover"><div class="stat-label-group"><span class="stat-label">🏆 Best Score</span><span id="new-best-score-emoji" class="hidden"></span></div><span class="stat-value" id="best-score-final-new">0</span></div><div class="stat-line perfect-stack-stat-gameover"><span class="stat-label">🎯 Perfect Stack</span><span class="stat-value" id="perfect-stacks-final-new">0</span></div></div>
-                <div id="game-over-buttons-new"><div id="replay-button-gameover"><img src="replay.png" alt="Replay Icon"><span>Replay</span></div></div>
+                <div id="game-over-buttons-new">
+                    <div id="replay-button-gameover">
+                        <img src="replay-game-icon.png" alt="Replay Game Button Icon PNG - Free Download">
+                        <span>Replay</span>
+                    </div>
+                    <div id="game-over-ad-container">
+                        <script async="async" data-cfasync="false" src="//pl27230048.profitableratecpm.com/974a475ef2745765744f82170973ddc3/invoke.js"></script>
+                        <div id="container-974a475ef2745765744f82170973ddc3"></div>
+                    </div>
+                </div>
             </div>
         </div>
         <div id="settings-overlay" class="hidden">
             <div class="settings-box">
-                <div class="setting-row"><img src="music.png" class="setting-icon" alt="Music Icon"><div class="setting-control"><div class="toggle-switch" id="music-toggle-settings"><span class="toggle-text toggle-text-off">OFF</span><div class="toggle-handle"></div><span class="toggle-text toggle-text-on">ON</span></div><input type="range" min="0" max="1" step="0.05" id="music-volume-slider" class="volume-slider"></div></div>
-                <div class="setting-row"><img src="unmute.png" class="setting-icon" id="settings-sfx-icon" alt="Sound Icon"><div class="setting-control"><div class="toggle-switch" id="sfx-toggle-settings"><span class="toggle-text toggle-text-off">OFF</span><div class="toggle-handle"></div><span class="toggle-text toggle-text-on">ON</span></div><input type="range" min="0" max="1" step="0.05" id="sfx-volume-slider" class="volume-slider"></div></div>
+                <div class="setting-row"><img src="music.png" alt="Music Settings Icon PNG" class="setting-icon"><div class="setting-control"><div class="toggle-switch" id="music-toggle-settings"><span class="toggle-text toggle-text-off">OFF</span><div class="toggle-handle"></div><span class="toggle-text toggle-text-on">ON</span></div><input type="range" min="0" max="1" step="0.05" id="music-volume-slider" class="volume-slider"></div></div>
+                <div class="setting-row"><img src="unmute.png" alt="Sound Settings Icon PNG" class="setting-icon" id="settings-sfx-icon"><div class="setting-control"><div class="toggle-switch" id="sfx-toggle-settings"><span class="toggle-text toggle-text-off">OFF</span><div class="toggle-handle"></div><span class="toggle-text toggle-text-on">ON</span></div><input type="range" min="0" max="1" step="0.05" id="sfx-volume-slider" class="volume-slider"></div></div>
                 <button id="save-settings-btn">Save & Close</button>
             </div>
         </div>
@@ -286,6 +310,9 @@
     </footer>
     
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    
+    <script type='text/javascript' src='//pl27230184.profitableratecpm.com/92/77/df/9277dfabac2429a0ff71688e694039d5.js'></script>
+
     <script>
         (function() {
             'use strict';
@@ -429,7 +456,6 @@
                 }
             }
             
-            // Start everything
             if (document.getElementById('game-wrapper')) {
                 init();
             }
