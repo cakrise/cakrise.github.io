@@ -26,7 +26,31 @@
         .game-active .navbar, .game-active #ad-container { max-height: 0; opacity: 0; }
         .game-over #ad-container { max-height: 0; opacity: 0; }
         .game-active #game-wrapper { height: 100vh; }
-        #ad-container { width: 100%; height: 60px; background-color: #333; display: flex; justify-content: center; align-items: center; color: #fff; font-family: sans-serif; flex-shrink: 0; }
+        #ad-container {
+    width: 100%;
+    min-height: 60px; /* ऊंचाई को लचीला बनाता है */
+    background-color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-family: sans-serif;
+    flex-shrink: 0;
+    padding: 5px 0; /* विज्ञापन को थोड़ी सांस लेने की जगह देता है */
+    overflow: hidden; /* यह सुनिश्चित करता है कि कुछ भी बाहर न जाए */
+}
+
+/* --- यह है जादुई हिस्सा --- */
+/* यह सीधे Adsterra द्वारा बनाए गए विज्ञापन को टारगेट करता है */
+#ad-container > div, 
+#ad-container > iframe {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    max-width: 100% !important; /* विज्ञापन को स्क्रीन से बाहर जाने से रोकता है */
+    margin: 0 auto !important; /* विज्ञापन को हमेशा बीच में रखता है */
+}
         .navbar { width: 100%; height: 60px; background: #343a40; box-shadow: 0 4px 10px rgba(0,0,0,0.15); display: flex; justify-content: space-between; align-items: center; padding: 0 20px; flex-shrink: 0; z-index: 5000; }
         .navbar-brand { display: flex; align-items: center; }
         .navbar-logo { width: 40px; height: auto; margin-right: 12px; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2)); }
@@ -277,15 +301,7 @@
                         <span>Replay</span>
                     </div>
                     <div id="game-over-ad-container">
-                        <script type="text/javascript">
-	atOptions = {
-		'key' : 'c58fb77c3903ff57aedb064c5170b9fb',
-		'format' : 'iframe',
-		'height' : 250,
-		'width' : 300,
-		'params' : {}
-	};
-</script>
+                        
 <script type="text/javascript" src="//www.highperformanceformat.com/c58fb77c3903ff57aedb064c5170b9fb/invoke.js"></script>
                     </div>
                 </div>
@@ -318,9 +334,7 @@
     </footer>
     
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
-    
     <script type='text/javascript' src='//pl27230184.profitableratecpm.com/92/77/df/9277dfabac2429a0ff71688e694039d5.js'></script>
-
     <script>
         (function() {
             'use strict';
