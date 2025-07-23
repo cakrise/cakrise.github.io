@@ -20,48 +20,15 @@
         body { width: 100%; height: 100%; overflow: hidden; font-family: 'Nunito', 'Arial', sans-serif; }
         .hidden { display: none !important; }
         a { text-decoration: none; }
-        body { 
-            display: flex; 
-           flex-direction: column;
-    background-color: #f0f4f7;
-}
+        body { display: flex; flex-direction: column; background-color: #f0f4f7; }
         #game-wrapper { flex-grow: 1; position: relative; overflow: hidden; display: flex; height: 100%; }
         #ad-container, .navbar { transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out; max-height: 60px; overflow: hidden; }
-        .game-active .navbar, .game-active #ad-container {
-             max-height: 0;
-             opacity: 0;
-             display: none;
-}
-        .game-over #ad-container{}
-    max-height: 60px; 
-    opacity: 1; 
-}
+        .game-active .navbar, .game-active #ad-container { max-height: 0; opacity: 0; display: none;
+        }
+        .game-over #ad-container { max-height: 0; opacity: 0; display: none; }
         .game-active #game-wrapper { height: 100vh; }
-        #ad-container {
-    width: 100%;
-    min-height: 60px; /* ऊंचाई को लचीला बनाता है */
-    background-color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    font-family: sans-serif;
-    flex-shrink: 0;
-    padding: 5px 0; /* विज्ञापन को थोड़ी सांस लेने की जगह देता है */
-    overflow: hidden; /* यह सुनिश्चित करता है कि कुछ भी बाहर न जाए */
-}
-
-/* --- यह है जादुई हिस्सा --- */
-/* यह सीधे Adsterra द्वारा बनाए गए विज्ञापन को टारगेट करता है */
-#ad-container > div, 
-#ad-container > iframe {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    width: 100% !important;
-    max-width: 100% !important; /* विज्ञापन को स्क्रीन से बाहर जाने से रोकता है */
-    margin: 0 auto !important; /* विज्ञापन को हमेशा बीच में रखता है */
-}
+        #ad-container { width: 100%; min-height: 60px; background-color: #333; display: flex; justify-content: center; align-items: center; color: #fff; font-family: sans-serif; flex-shrink: 0; padding: 5px 0; overflow: hidden; }
+        #ad-container > div, #ad-container > iframe { display: flex !important; justify-content: center !important; align-items: center !important; width: 100% !important; max-width: 100% !important; margin: 0 auto !important; }
         .navbar { width: 100%; height: 60px; background: #343a40; box-shadow: 0 4px 10px rgba(0,0,0,0.15); display: flex; justify-content: space-between; align-items: center; padding: 0 20px; flex-shrink: 0; z-index: 5000; }
         .navbar-brand { display: flex; align-items: center; }
         .navbar-logo { width: 40px; height: auto; margin-right: 12px; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2)); }
@@ -232,46 +199,6 @@
         #score.best-glow { animation: glow 1.2s ease-in-out; }
         @keyframes glow { 0%, 100% { text-shadow: 3px 3px 0px #ff3399; } 50% { text-shadow: 0 0 15px #ffffff, 3px 3px 0px #ffcc00; } }
         @media (min-width: 769px) {
-    
-    /* --- FINAL DESKTOP "MOBILE-VIEW" LAYOUT --- */
-
-    /* 1. बाहर का बैकग्राउंड (पहले जैसा ही) */
-    body {
-        background-color: #f0f4f7; /* एक हल्का और साफ बैकग्राउंड */
-        display: flex;
-        justify-content: center; /* हर चीज़ को बीच में लाएगा */
-        align-items: center; /* हर चीज़ को बीच में लाएगा */
-    }
-
-    /* 2. यह वह कंटेनर है जो आपकी पूरी साइट को होल्ड करेगा */
-    .site-container {
-        width: 100%;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-    }
-
-    /* 3. मुख्य बदलाव यहाँ है! */
-    #game-wrapper {
-        width: 100%;
-        max-width: 460px;  /* फोन जैसी चौड़ाई */
-        height: 90vh; /* फोन जैसी ऊंचाई */
-        max-height: 3000px;
-        
-        margin: auto;    /* यह इसे ऊपर-नीचे और दाएं-बाएं से बिलकुल बीच में ले आएगा */
-        
-        box-shadow: 0 10px 40px rgba(0,0,0,0.4); /* सुंदर शैडो */
-        border-radius: 20px; /* फोन जैसे गोल कोने */
-        position: relative;
-        overflow: hidden; /* यह सुनिश्चित करेगा कि बैकग्राउंड बाहर न फैले */
-    }
-
-    /* 4. आइकन्स और टेक्स्ट को एडजस्ट करना */
-    #play-pause-img {
-        width: 50px;
-        height: 50px;
-    }
-}
             .block { height: 4vh; }
             #score { font-size: 5rem; }
             #tap-to-stack-message { font-size: 38px; }
@@ -351,10 +278,6 @@
                         <img src="replay-game-icon.png" alt="Replay Game Button Icon PNG - Free Download">
                         <span>Replay</span>
                     </div>
-                    <div id="game-over-ad-container">
-                        
-<script type="text/javascript" src="//www.highperformanceformat.com/c58fb77c3903ff57aedb064c5170b9fb/invoke.js"></script>
-                    </div>
                 </div>
             </div>
         </div>
@@ -372,19 +295,11 @@
     </main>
 
     <footer id="ad-container">
-        <script type="text/javascript">
-	atOptions = {
-		'key' : 'bc7df7cc7de9f2b75883b8f8af652f9c',
-		'format' : 'iframe',
-		'height' : 90,
-		'width' : 728,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/bc7df7cc7de9f2b75883b8f8af652f9c/invoke.js"></script>
+        <!-- Your Banner Ad Code Goes Here -->
     </footer>
     
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    
     <script type='text/javascript' src='//pl27230184.profitableratecpm.com/92/77/df/9277dfabac2429a0ff71688e694039d5.js'></script>
     <script>
         (function() {
