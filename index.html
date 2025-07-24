@@ -32,7 +32,7 @@
         .navbar { width: 100%; height: 60px; background: #343a40; box-shadow: 0 4px 10px rgba(0,0,0,0.15); display: flex; justify-content: space-between; align-items: center; padding: 0 20px; flex-shrink: 0; z-index: 5000; }
         .navbar-brand { display: flex; align-items: center; }
         .navbar-logo { width: 40px; height: auto; margin-right: 12px; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2)); }
-        .navbar-title { font-family: 'Fredoka One', sans-serif; font-size: 28px; color: #fff; text-decoration: none; text-shadow: 0 0 5px #ff7979, 0 0 10px #ffbe76; }
+        .navbar-title { font-family: 'Fredoka One', sans-serif; font-weight: 800; font-size: 28px; color: #fff; text-decoration: none; text-shadow: 0 0 5px #ff7979, 0 0 10px #ffbe76; }
         .hamburger-menu { display: none; font-size: 30px; background: none; border: none; cursor: pointer; color: #fff; }
         .nav-links { display: flex; align-items: center; height: 100%; }
         .nav-links a { display: flex; align-items: center; height: 100%; margin-left: 10px; text-decoration: none; color: #adb5bd; font-weight: bold; font-size: 16px; padding: 0 15px; transition: all 0.3s ease; }
@@ -51,14 +51,14 @@
         #start-screen { background: none; }
         #start-screen-logo { width: 180px; margin-bottom: 30px; animation: logo-bounce 2s ease-in-out infinite; }
         @keyframes logo-bounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-        #initial-play-btn { font-family: 'Fredoka One', sans-serif; font-size: 32px; padding: 18px 50px; border: none; border-radius: 50px; background: linear-gradient(145deg, #ff7979, #f9ca24); color: white; cursor: pointer; box-shadow: 0 6px 0px #c40000; text-shadow: 2px 2px 3px rgba(0,0,0,0.2); transition: all 0.1s ease-in-out; animation: button-pulse 1.5s ease-in-out infinite; }
+        #initial-play-btn { font-family: 'Fredoka One', sans-serif; font-weight: 800; font-size: 32px; padding: 18px 50px; border: none; border-radius: 50px; background: linear-gradient(145deg, #ff7979, #f9ca24); color: white; cursor: pointer; box-shadow: 0 6px 0px #c40000; text-shadow: 2px 2px 3px rgba(0,0,0,0.2); transition: all 0.1s ease-in-out; animation: button-pulse 1.5s ease-in-out infinite; }
         @keyframes button-pulse { 0%, 100% { transform: scale(1); box-shadow: 0 6px 0px #c40000; } 50% { transform: scale(1.03); box-shadow: 0 8px 15px rgba(196, 0, 0, 0.4); } }
         #initial-play-btn:active { transform: translateY(3px) scale(1); box-shadow: 0 3px 0 #c40000; }
         #loading-logo { width: 150px; margin-bottom: 20px; }
-        #loading-text { font-family: 'Fredoka One', sans-serif; font-size: 24px; margin-bottom: 20px; }
+        #loading-text { font-family: 'Fredoka One', sans-serif; font-weight: 700; font-size: 24px; margin-bottom: 20px; }
         #progress-bar-container { width: 80%; max-width: 300px; height: 20px; background: rgba(107, 62, 39, 0.2); border-radius: 10px; border: 2px solid #6B3E27; overflow: hidden; }
         #progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, #FFBD59, #F47983); border-radius: 8px; transition: width 0.1s linear; }
-        #progress-text { font-family: 'Fredoka One', sans-serif; font-size: 18px; margin-top: 10px; }
+        #progress-text { font-family: 'Fredoka One', sans-serif; font-weight: 700; font-size: 18px; margin-top: 10px; }
         #in-game-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('game_bg_icons.png'); background-repeat: repeat; z-index: -1; pointer-events: none; }
         #animated-gradient-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -3; background-size: 100% 400%; animation: gradient-animation 20s ease infinite; transition: background-image 1.5s ease-in-out; }
         @keyframes gradient-animation { 0% { background-position: 50% 0%; } 50% { background-position: 50% 100%; } 100% { background-position: 50% 0%; } }
@@ -91,7 +91,7 @@
         @keyframes pop-in-emoji { from { transform: scale(0) rotate(-30deg); } to { transform: scale(1) rotate(0deg); } }
         #ui-top { top: 0; left: 0; width: 100%; height: 100px; padding: 20px; z-index: 99; pointer-events: none; }
         #ui-top > * { pointer-events: auto; }
-        #score { font-family: 'Fredoka One', sans-serif; font-size: 3.5rem; color: #ffffff; text-shadow: 3px 3px 0px #ff3399; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); transition: filter 0.3s ease-out, text-shadow 0.3s ease-out; }
+        #score { font-family: 'Fredoka One', sans-serif; font-weight: 800; font-size: 3.5rem; color: #ffffff; text-shadow: 3px 3px 0px #ff3399; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); transition: filter 0.3s ease-out, text-shadow 0.3s ease-out; }
         .score-updated { animation: score-pulse 0.3s ease-out; }
         @keyframes score-pulse { 0% { transform: translateX(-50%) scale(1); } 50% { transform: translateX(-50%) scale(1.1); } 100% { transform: translateX(-50%) scale(1); } }
         .dimmed { filter: brightness(0.6) blur(2px); }
@@ -102,7 +102,7 @@
         #play-pause-control { top: 25px; right: 20px; left: auto; background: none; border: none; backdrop-filter: none; width: auto; height: auto; cursor: pointer; }
         #play-pause-img { width: 40px; height: 40px; filter: drop-shadow(0px 0px 3px rgba(255, 255, 255, 0.9)); transition: transform 0.2s ease; }
         #play-pause-control:active #play-pause-img { transform: scale(0.9); }
-        #tap-to-stack-message { top: 55%; left: 50%; transform: translate(-50%, -50%); font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: 30px; color: #FFFFFF; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25); pointer-events: none; z-index: 10; opacity: 1; transition: opacity 0.3s ease-out; animation: tapPulse 1.8s ease-in-out infinite;text-align: center; }
+        #tap-to-stack-message { top: 55%; left: 50%; transform: translate(-50%, -50%); font-family: 'Fredoka', sans-serif; font-weight: 800; font-size: 30px; color: #FFFFFF; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25); pointer-events: none; z-index: 10; opacity: 1; transition: opacity 0.3s ease-out; animation: tapPulse 1.8s ease-in-out infinite;text-align: center; }
         @keyframes tapPulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.05); } }
         #tap-to-stack-message.fade-out { opacity: 0; }
         #menu { top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; z-index: 200; text-align: center; }
@@ -118,7 +118,7 @@
         .stat-line { display: flex; align-items: center; justify-content: space-between; width: 85%; max-width: 320px; padding: 10px 20px; border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.7); background: rgba(0, 0, 0, 0.2); box-shadow: inset 0 0 10px rgba(0,0,0,0.2); }
         .stat-label-group { display: flex; align-items: center; gap: 10px; }
         .stat-line .stat-label { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 18px; opacity: 1; }
-        .stat-line .stat-value { font-family: 'Fredoka One', 'Chewy', sans-serif; font-size: 26px; font-weight: bold; }
+        .stat-line .stat-value { font-family: 'Fredoka One', 'Chewy', sans-serif; font-weight: bold; font-size: 26px; font-weight: bold; }
         .your-score-stat-gameover .stat-label { color: #ffdae5; }
         .your-score-stat-gameover .stat-value { color: #FFFFFF; text-shadow: 2px 2px 0px #c40000; }
         .best-score-stat-gameover .stat-label { color: #ffe7d1; }
@@ -144,7 +144,7 @@
         .main-action img { width: 80px; height: 80px; transition: transform 0.2s; }
         .main-action:hover img { transform: scale(1.1); }
         .main-action:active img { transform: scale(0.95); }
-        .resume-text { font-family: 'Fredoka One', 'Chewy', sans-serif; font-size: 24px; color: #4CAF50; text-shadow: 1px 1px 0px #fff, 2px 2px 3px rgba(0,0,0,0.2); }
+        .resume-text { font-family: 'Fredoka One', 'Chewy', sans-serif; font-weight: bold; font-size: 24px; color: #4CAF50; text-shadow: 1px 1px 0px #fff, 2px 2px 3px rgba(0,0,0,0.2); }
         .pause-stats { display: flex; flex-direction: column; gap: 12px; width: fit-content; margin: 0 auto; }
         .cake-text-theme { font-weight: bold; font-size: 22px; display: flex; justify-content: flex-start; gap: 8px; }
         .your-score-text { color: #ff69b4; text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.8); }
