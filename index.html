@@ -13,18 +13,17 @@
     <link rel="manifest" href="site.webmanifest">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;800&family=Baloo+Bhai+2:wght@700&family=Poppins:wght@700&family=Bebas+Neue&family=Anton&family=Oswald:wght@700&family=Quicksand:wght@700&family=Comic+Neue:wght@700&family=Fredoka:wght@700&family=Chewy&family=Caveat:wght@700&family=Patrick+Hand&family=Raleway:wght@700&family=Open+Sans:wght@700&family=Lato:wght@700&family=Bangers&family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;800;900&family=Baloo+Bhai+2:wght@700&family=Poppins:wght@700&family=Bebas+Neue&family=Anton&family=Oswald:wght@700&family=Quicksand:wght@700&family=Comic+Neue:wght@700&family=Fredoka:wght@700&family=Chewy&family=Caveat:wght@700&family=Patrick+Hand&family=Raleway:wght@700&family=Open+Sans:wght@700&family=Lato:wght@700&family=Bangers&family=Luckiest+Guy&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         html { height: 100%; }
-        body { width: 100%; height: 100%; overflow: hidden; font-family: 'Nunito', 'Arial', sans-serif; }
+        body { width: 100%; height: 100vh; /* Use vh for full viewport height */ overflow: hidden; font-family: 'Nunito', 'Arial', sans-serif; font-weight: 700; }
         .hidden { display: none !important; }
         a { text-decoration: none; }
-        body { display: flex; flex-direction: column; background-color: #f0f4f7; }
-        #game-wrapper { flex-grow: 1; position: relative; overflow: hidden; display: flex; height: 100%; }
+        body { display: flex; flex-direction: column; background-color: #000; /* Default background is black for theater mode */ }
+        #game-wrapper { flex-grow: 1; position: relative; overflow: hidden; display: flex; height: 100%; width: 100%; background-image: url('play_game_bg.png'); background-size: cover; background-position: center; transition: background-image 1s ease-in-out; }
         #ad-container, .navbar { transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out; max-height: 60px; overflow: hidden; }
-        .game-active .navbar, .game-active #ad-container { max-height: 0; opacity: 0; display: none;
-        }
+        .game-active .navbar, .game-active #ad-container { max-height: 0; opacity: 0; display: none; }
         .game-over #ad-container { max-height: 0; opacity: 0; display: none; }
         .game-active #game-wrapper { height: 100vh; }
         #ad-container { width: 100%; min-height: 60px; background-color: #333; display: flex; justify-content: center; align-items: center; color: #fff; font-family: sans-serif; flex-shrink: 0; padding: 5px 0; overflow: hidden; }
@@ -32,7 +31,7 @@
         .navbar { width: 100%; height: 60px; background: #343a40; box-shadow: 0 4px 10px rgba(0,0,0,0.15); display: flex; justify-content: space-between; align-items: center; padding: 0 20px; flex-shrink: 0; z-index: 5000; }
         .navbar-brand { display: flex; align-items: center; }
         .navbar-logo { width: 40px; height: auto; margin-right: 12px; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2)); }
-        .navbar-title { font-family: 'Fredoka One', sans-serif; font-weight: 800; font-size: 28px; color: #fff; text-decoration: none; text-shadow: 0 0 5px #ff7979, 0 0 10px #ffbe76; }
+        .navbar-title { font-family: 'Fredoka One', sans-serif; font-size: 28px; color: #fff; text-decoration: none; text-shadow: 0 0 5px #ff7979, 0 0 10px #ffbe76; }
         .hamburger-menu { display: none; font-size: 30px; background: none; border: none; cursor: pointer; color: #fff; }
         .nav-links { display: flex; align-items: center; height: 100%; }
         .nav-links a { display: flex; align-items: center; height: 100%; margin-left: 10px; text-decoration: none; color: #adb5bd; font-weight: bold; font-size: 16px; padding: 0 15px; transition: all 0.3s ease; }
@@ -46,7 +45,6 @@
             .nav-links a { margin: 0; padding: 15px 0; border-top: 1px solid #495057; width: 100%; }
             .nav-links a.active { background-color: #212529; }
         }
-        #game-wrapper { background-image: url('play_game_bg.png'); background-size: cover; background-position: center; transition: background-image 1s ease-in-out; }
         .fullscreen-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #F7E7CE; display: flex; justify-content: center; align-items: center; z-index: 2000; flex-direction: column; color: #6B3E27; text-align: center; transition: opacity 0.5s ease-out; }
         #start-screen { background: none; }
         #start-screen-logo { width: 180px; margin-bottom: 30px; animation: logo-bounce 2s ease-in-out infinite; }
@@ -199,6 +197,9 @@
         #score.best-glow { animation: glow 1.2s ease-in-out; }
         @keyframes glow { 0%, 100% { text-shadow: 3px 3px 0px #ff3399; } 50% { text-shadow: 0 0 15px #ffffff, 3px 3px 0px #ffcc00; } }
         @media (min-width: 769px) {
+            body { background-color: #000; display: flex; justify-content: center; align-items: center; }
+            .site-container { width: 100%; max-width: 460px; height: 100vh; max-height: 900px; display: flex; flex-direction: column; box-shadow: 0 0 40px rgba(255, 255, 255, 0.15); position: relative; }
+            .navbar, #ad-container { height: 70px; max-height: 70px; }
             .block { height: 4vh; }
             #score { font-size: 5rem; }
             #tap-to-stack-message { font-size: 38px; }
@@ -211,96 +212,96 @@
             #play-pause-img { width: 50px; height: 50px; }
             .icon-container { width: 60px; height: 60px; }
             #replay-button-gameover img { width: 45px; height: 45px; }
-            #game-window { max-width: 450px; margin: 0 auto; border-left: 2px solid rgba(0,0,0,0.1); border-right: 2px solid rgba(0,0,0,0.1); box-shadow: 0 0 30px rgba(0,0,0,0.2); }
         }
     </style>
 </head>
 <body>
-    <header class="navbar">
-        <div class="navbar-brand">
-            <img src="cakrise-game-logo.png" alt="Cakrise Game Logo PNG" class="navbar-logo">
-            <a href="index.html" class="navbar-title">Cakrise</a>
-        </div>
-        <div class="navbar-menu-container">
-            <button id="hamburger-btn" class="hamburger-menu">☰</button>
-            <nav id="nav-links" class="nav-links">
-                <a href="index.html">Game</a>
-                <a href="about.html">About</a>
-                <a href="privacy.html">Privacy Policy</a>
-            </nav>
-        </div>
-    </header>
-
-    <main id="game-wrapper">
-        <div id="start-screen" class="fullscreen-overlay">
-            <img src="cakrise-game-logo.png" alt="Cakrise Cake Stack Game Title Logo" id="start-screen-logo">
-            <button id="initial-play-btn">Play Game</button>
-        </div>
-        <div id="loading-overlay" class="fullscreen-overlay hidden">
-            <img src="cakrise-game-logo.png" alt="Loading Cakrise Game Assets" id="loading-logo">
-            <p id="loading-text">Loading Game...</p>
-            <div id="progress-bar-container"><div id="progress-bar"></div></div>
-            <p id="progress-text">0%</p>
-        </div>
-        <div id="animated-gradient-bg"></div>
-        <audio id="playClickSound" src="play_click.mp3" preload="auto"></audio>
-        <audio id="gameOverSound" src="game_over_fun.mp3" preload="auto"></audio>
-        <audio id="backgroundMusic" src="background.mp3" loop preload="auto"></audio>
-        <audio id="perfectSound" src="perfect_ding_fun.mp3" preload="auto"></audio>
-        <audio id="fallSound" src="slice_fall_plop.mp3" preload="auto"></audio>
-        <audio id="clickSound" src="stack_click_fun.mp3" preload="auto"></audio>
-        <audio id="uiClickSound" src="click.mp3" preload="auto"></audio>
-        <audio id="fanfareSound" src="fanfare.mp3" preload="auto"></audio>
-        <audio id="comboSound" src="combo.mp3" preload="auto"></audio>
-        <div id="floating-elements-bg"></div>
-        <div id="in-game-background"></div>
-        <div id="game-window"><div id="container"></div></div>
-        <div id="ui-top" class="hidden">
-            <div id="score">0</div>
-            <div id="play-pause-control"><img src="pause-button-icon.png" id="play-pause-img" alt="Pause or Resume Cakrise Game"></div>
-        </div>
-        <div id="tap-to-stack-message" class="hidden">Tap to Stack!<br>👆</div>
-        <div id="new-best-banner" class="hidden"><span class="new-best-text">🎉 New<br>Best Score!</span></div>
-        <div id="pause-overlay" class="hidden">
-             <div class="pause-menu-box">
-                <div id="resume-button" class="main-action"><img src="play-button-icon.png" alt="Play Game or Resume Icon PNG"><span class="resume-text">Resume</span></div>
-                <div class="pause-stats"><div class="cake-text-theme your-score-text">Your Score:<span id="pause-score">0</span></div><div class="cake-text-theme best-score-text">Best Score:<span id="pause-best-score">0</span></div></div>
-                <div class="pause-audio-controls"><div id="music-toggle-pause" class="icon-container"><img src="music.png" id="music-toggle-img" alt="Music"></div><div id="sfx-toggle-pause" class="icon-container"><img src="unmute.png" id="sfx-toggle-img" alt="SFX"></div></div>
-                <div class="pause-footer-actions"><button id="restart-button-pause" class="footer-action-btn"><div class="icon-container"><img src="restart-game-icon.png" alt="Restart Game Icon PNG"></div><span class="btn-text">Restart</span></button></div>
+    
+        <header class="navbar">
+            <div class="navbar-brand">
+                <img src="cakrise-game-logo.png" alt="Cakrise Game Logo" class="navbar-logo">
+                <a href="index.html" class="navbar-title">Cakrise</a>
             </div>
-        </div>
-        <div id="menu" class="hidden">
-            <div id="game-over-box" class="hidden">
-                <img src="game-over-title-png.png" id="game-over-image" alt="Game Over PNG Transparent Image for Games">
-                <div id="game-over-stats-new"><div class="stat-line your-score-stat-gameover"><span class="stat-label">🎂 Final Score</span><span class="stat-value" id="final-score-value-new">0</span></div><div class="stat-line best-score-stat-gameover"><div class="stat-label-group"><span class="stat-label">🏆 Best Score</span><span id="new-best-score-emoji" class="hidden"></span></div><span class="stat-value" id="best-score-final-new">0</span></div><div class="stat-line perfect-stack-stat-gameover"><span class="stat-label">🎯 Perfect Stack</span><span class="stat-value" id="perfect-stacks-final-new">0</span></div></div>
-                <div id="game-over-buttons-new">
-                    <div id="replay-button-gameover">
-                        <img src="replay-game-icon.png" alt="Replay Game Button Icon PNG - Free Download">
-                        <span>Replay</span>
+            <div class="navbar-menu-container">
+                <button id="hamburger-btn" class="hamburger-menu">☰</button>
+                <nav id="nav-links" class="nav-links">
+                    <a href="index.html">Game</a>
+                    <a href="about.html">About</a>
+                    <a href="privacy.html">Privacy Policy</a>
+                </nav>
+            </div>
+        </header>
+
+        <main id="game-wrapper">
+            <div id="start-screen" class="fullscreen-overlay">
+                <img src="cakrise-game-logo.png" alt="Cakrise Game Title Logo" id="start-screen-logo">
+                <button id="initial-play-btn">Play Game</button>
+            </div>
+            <div id="loading-overlay" class="fullscreen-overlay hidden">
+                <img src="cakrise-game-logo.png" alt="Loading Cakrise Game Assets" id="loading-logo">
+                <p id="loading-text">Loading Game...</p>
+                <div id="progress-bar-container"><div id="progress-bar"></div></div>
+                <p id="progress-text">0%</p>
+            </div>
+            <div id="animated-gradient-bg"></div>
+            <audio id="playClickSound" src="play_click.mp3" preload="auto"></audio>
+            <audio id="gameOverSound" src="game_over_fun.mp3" preload="auto"></audio>
+            <audio id="backgroundMusic" src="background.mp3" loop preload="auto"></audio>
+            <audio id="perfectSound" src="perfect_ding_fun.mp3" preload="auto"></audio>
+            <audio id="fallSound" src="slice_fall_plop.mp3" preload="auto"></audio>
+            <audio id="clickSound" src="stack_click_fun.mp3" preload="auto"></audio>
+            <audio id="uiClickSound" src="click.mp3" preload="auto"></audio>
+            <audio id="fanfareSound" src="fanfare.mp3" preload="auto"></audio>
+            <audio id="comboSound" src="combo.mp3" preload="auto"></audio>
+            <div id="floating-elements-bg"></div>
+            <div id="in-game-background"></div>
+            <div id="game-window"><div id="container"></div></div>
+            <div id="ui-top" class="hidden">
+                <div id="score">0</div>
+                <div id="play-pause-control"><img src="pause-button-icon.png" id="play-pause-img" alt="Pause or Resume Cakrise Game"></div>
+            </div>
+            <div id="tap-to-stack-message" class="hidden">Tap to Stack!<br>👆</div>
+            <div id="new-best-banner" class="hidden"><span class="new-best-text">🎉 New<br>Best Score!</span></div>
+            <div id="pause-overlay" class="hidden">
+                <div class="pause-menu-box">
+                    <div id="resume-button" class="main-action"><img src="play-button-icon.png" alt="Play Game or Resume Icon PNG"><span class="resume-text">Resume</span></div>
+                    <div class="pause-stats"><div class="cake-text-theme your-score-text">Your Score:<span id="pause-score">0</span></div><div class="cake-text-theme best-score-text">Best Score:<span id="pause-best-score">0</span></div></div>
+                    <div class="pause-audio-controls"><div id="music-toggle-pause" class="icon-container"><img src="music.png" id="music-toggle-img" alt="Music"></div><div id="sfx-toggle-pause" class="icon-container"><img src="unmute.png" id="sfx-toggle-img" alt="SFX"></div></div>
+                    <div class="pause-footer-actions"><button id="restart-button-pause" class="footer-action-btn"><div class="icon-container"><img src="restart-game-icon.png" alt="Restart Game Icon PNG"></div><span class="btn-text">Restart</span></button></div>
+                </div>
+            </div>
+            <div id="menu" class="hidden">
+                <div id="game-over-box" class="hidden">
+                    <img src="game-over-title-png.png" id="game-over-image" alt="Game Over PNG Transparent Image for Games">
+                    <div id="game-over-stats-new"><div class="stat-line your-score-stat-gameover"><span class="stat-label">🎂 Final Score</span><span class="stat-value" id="final-score-value-new">0</span></div><div class="stat-line best-score-stat-gameover"><div class="stat-label-group"><span class="stat-label">🏆 Best Score</span><span id="new-best-score-emoji" class="hidden"></span></div><span class="stat-value" id="best-score-final-new">0</span></div><div class="stat-line perfect-stack-stat-gameover"><span class="stat-label">🎯 Perfect Stack</span><span class="stat-value" id="perfect-stacks-final-new">0</span></div></div>
+                    <div id="game-over-buttons-new">
+                        <div id="replay-button-gameover">
+                            <img src="replay-game-icon.png" alt="Replay Game Button Icon PNG - Free Download">
+                            <span>Replay</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div id="settings-overlay" class="hidden">
-            <div class="settings-box">
-                <div class="setting-row"><img src="music.png" alt="Music Settings Icon PNG" class="setting-icon"><div class="setting-control"><div class="toggle-switch" id="music-toggle-settings"><span class="toggle-text toggle-text-off">OFF</span><div class="toggle-handle"></div><span class="toggle-text toggle-text-on">ON</span></div><input type="range" min="0" max="1" step="0.05" id="music-volume-slider" class="volume-slider"></div></div>
-                <div class="setting-row"><img src="unmute.png" alt="Sound Settings Icon PNG" class="setting-icon" id="settings-sfx-icon"><div class="setting-control"><div class="toggle-switch" id="sfx-toggle-settings"><span class="toggle-text toggle-text-off">OFF</span><div class="toggle-handle"></div><span class="toggle-text toggle-text-on">ON</span></div><input type="range" min="0" max="1" step="0.05" id="sfx-volume-slider" class="volume-slider"></div></div>
-                <button id="save-settings-btn">Save & Close</button>
+            <div id="settings-overlay" class="hidden">
+                <div class="settings-box">
+                    <div class="setting-row"><img src="music.png" alt="Music Settings Icon PNG" class="setting-icon"><div class="setting-control"><div class="toggle-switch" id="music-toggle-settings"><span class="toggle-text toggle-text-off">OFF</span><div class="toggle-handle"></div><span class="toggle-text toggle-text-on">ON</span></div><input type="range" min="0" max="1" step="0.05" id="music-volume-slider" class="volume-slider"></div></div>
+                    <div class="setting-row"><img src="unmute.png" alt="Sound Settings Icon PNG" class="setting-icon" id="settings-sfx-icon"><div class="setting-control"><div class="toggle-switch" id="sfx-toggle-settings"><span class="toggle-text toggle-text-off">OFF</span><div class="toggle-handle"></div><span class="toggle-text toggle-text-on">ON</span></div><input type="range" min="0" max="1" step="0.05" id="sfx-volume-slider" class="volume-slider"></div></div>
+                    <button id="save-settings-btn">Save & Close</button>
+                </div>
             </div>
-        </div>
-        <div id="exit-confirmation-overlay" class="hidden">
-            <div class="confirmation-box"><p>Are you sure you want to exit?</p><div class="confirmation-buttons"><button id="confirm-exit-yes">Yes</button><button id="confirm-exit-no">No</button></div></div>
-        </div>
-        <div id="toast-notification" class="hidden"></div>
-    </main>
+            <div id="exit-confirmation-overlay" class="hidden">
+                <div class="confirmation-box"><p>Are you sure you want to exit?</p><div class="confirmation-buttons"><button id="confirm-exit-yes">Yes</button><button id="confirm-exit-no">No</button></div></div>
+            </div>
+            <div id="toast-notification" class="hidden"></div>
+        </main>
 
-    <footer id="ad-container">
-        <!-- Your Banner Ad Code Goes Here -->
-    </footer>
+        <footer id="ad-container">
+            <!-- Your Banner Ad Code Goes Here -->
+        </footer>
+    
     
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
     
-    <script type='text/javascript' src='//pl27230184.profitableratecpm.com/92/77/df/9277dfabac2429a0ff71688e694039d5.js'></script>
     <script>
         (function() {
             'use strict';
@@ -351,7 +352,7 @@
             function togglePause() { if (!state.isPlaying || state.gameFrozenForCelebration) return; state.isPaused = !state.isPaused; if (state.isPaused) { cancelAnimationFrame(state.animationFrameId); Audio.backgroundMusic.pause(); DOMElements.pauseScoreDisplay.innerText = ` ${state.score}`; DOMElements.pauseBestScoreDisplay.innerText = ` ${state.bestScore}`; updateAllUIs(); DOMElements.pauseOverlay.classList.remove('hidden'); DOMElements.playPauseImg.src = 'play.png'; } else { state.lastTimestamp = performance.now(); state.animationFrameId = requestAnimationFrame(animate); if (!state.isMusicMuted) Audio.backgroundMusic.play().catch(() => {}); DOMElements.pauseOverlay.classList.add('hidden'); DOMElements.playPauseImg.src = 'pause.png'; } }
             function addBlock(isBase = false) { const gameWidth = DOMElements.gameWindow.clientWidth; const prevBlock = state.blocks.length > 0 ? state.blocks[state.blocks.length - 1] : null; const newBlockData = { element: document.createElement('div') }; newBlockData.element.classList.add('block'); newBlockData.y = CONFIG.STACK_START_TOP_VH - (state.blocks.length * CONFIG.BLOCK_HEIGHT_VH); newBlockData.element.style.top = `${newBlockData.y}vh`; const colorIndex = Math.floor(Math.random() * CONFIG.COLORS.length); if (!isBase && DOMElements.animatedBg) DOMElements.animatedBg.style.backgroundImage = CONFIG.BACKGROUND_GRADIENTS[colorIndex]; const blockColor = (state.blocks.length === 0) ? '#6B3E27' : CONFIG.COLORS[colorIndex]; newBlockData.element.style.backgroundColor = blockColor; newBlockData.color = blockColor; if (isBase) { const blockWidthPercentage = window.innerWidth > 768 ? 0.35 : 0.48; newBlockData.width = gameWidth * blockWidthPercentage; newBlockData.x = (gameWidth / 2) - (newBlockData.width / 2); newBlockData.speed = 0; newBlockData.element.classList.add('stacked'); } else { newBlockData.width = prevBlock.width; newBlockData.x = Math.random() > 0.5 ? -newBlockData.width : gameWidth; newBlockData.direction = newBlockData.x > 0 ? -1 : 1; const stackCount = state.blocks.length - CONFIG.BASE_BLOCK_COUNT; const speedIncrease = Math.min(stackCount * 4, CONFIG.MAX_SPEED - CONFIG.INITIAL_SPEED); let baseSpeed = CONFIG.INITIAL_SPEED; if (window.innerWidth > 768) { baseSpeed = 180; } newBlockData.speed = baseSpeed + speedIncrease; state.currentBlock = newBlockData; state.isPlacing = false; } newBlockData.element.style.width = `${newBlockData.width}px`; newBlockData.element.style.transform = `translateX(${newBlockData.x}px)`; state.blocks.push(newBlockData); DOMElements.container.appendChild(newBlockData.element); }
             function animate(timestamp) { if (!state.isPlaying || state.isPaused || state.gameFrozenForCelebration) return; const deltaTime = timestamp - state.lastTimestamp; state.lastTimestamp = timestamp; if (state.currentBlock) { const block = state.currentBlock; const distance = block.direction * block.speed * (deltaTime / 1000); block.x += distance; const gameWidth = DOMElements.gameWindow.clientWidth; if (block.x + block.width > gameWidth) { block.x = gameWidth - block.width; block.direction = -1; } if (block.x < 0) { block.x = 0; block.direction = 1; } block.element.style.transform = `translateX(${block.x}px)`; } state.animationFrameId = requestAnimationFrame(animate); }
-            function handleNewBestScore(followUpMessage = null) { state.gameFrozenForCelebration = true; DOMElements.newBestBanner.classList.remove('hidden'); DOMElements.newBestBanner.classList.add('show'); playSound(Audio.fanfareSound); DOMElements.scoreDisplay.classList.add('best-glow'); if (typeof confetti === 'function') confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 } }); setTimeout(() => { DOMElements.newBestBanner.classList.remove('show'); DOMElements.newBestBanner.classList.add('hidden'); DOMElements.scoreDisplay.classList.remove('best-glow'); if (followUpMessage) { setTimeout(() => { showBonusMessage(followUpMessage); }, 100); } state.gameFrozenForCelebration = false; state.lastTimestamp = performance.now(); state.animationFrameId = requestAnimationFrame(animate); }, 1200); }
+            function handleNewBestScore(followUpMessage = null) { state.gameFrozenForCelebration = true; DOMElements.newBestBanner.classList.remove('hidden'); DOMElements.newBestBanner.classList.add('show'); playSound(Audio.fanfareSound); DOMElements.scoreDisplay.classList.add('best-glow'); if (typeof confetti === 'function') confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 }, zIndex: 9999 }); setTimeout(() => { DOMElements.newBestBanner.classList.remove('show'); DOMElements.newBestBanner.classList.add('hidden'); DOMElements.scoreDisplay.classList.remove('best-glow'); if (followUpMessage) { setTimeout(() => { showBonusMessage(followUpMessage); }, 100); } state.gameFrozenForCelebration = false; state.lastTimestamp = performance.now(); state.animationFrameId = requestAnimationFrame(animate); }, 1200); }
             function placeBlock() { if (!state.currentBlock || state.isPlacing) return; state.isPlacing = true; if (!state.hasTappedOnce) { DOMElements.tapToStackMessage.classList.add('fade-out'); setTimeout(() => DOMElements.tapToStackMessage.classList.add('hidden'), 300); state.hasTappedOnce = true; } cancelAnimationFrame(state.animationFrameId); const prevBlock = state.blocks[state.blocks.length - 2]; const newX = Math.max(state.currentBlock.x, prevBlock.x); const newWidth = Math.min(state.currentBlock.x + state.currentBlock.width, prevBlock.x + prevBlock.width) - newX; let perfectMessageToShow = null; if (newWidth <= 0.1) { if (Audio.fallSound && !state.areSfxMuted) { const originalVolume = state.sfxVolume; Audio.fallSound.volume = Math.min(1.0, originalVolume * 1.5); Audio.fallSound.currentTime = 0; Audio.fallSound.play().catch(() => {}); setTimeout(() => { if(Audio.fallSound) Audio.fallSound.volume = originalVolume; }, 1000); } showEmojiFace('sad', state.currentBlock.element); state.currentBlock.element.classList.add('falling'); state.currentBlock.element.style.transform = `translateY(110vh) rotateZ(30deg)`; state.currentBlock.element.style.opacity = '0'; gameOver(); return; } playSound(Audio.clickSound); const isPerfect = (prevBlock.width - newWidth) < CONFIG.PERFECT_MATCH_THRESHOLD; if (isPerfect) { state.perfectStackCombo++; state.totalSessionPerfectStacks++; let basePoints = 3; let bonusPoints = 0; if (state.perfectStackCombo >= 5) { bonusPoints = 3; } else if (state.perfectStackCombo >= 3) { bonusPoints = state.perfectStackCombo - 2; } const totalPoints = basePoints + bonusPoints; state.score += totalPoints; let popupMessage = ''; if (state.perfectStackCombo >= 3) { playSound(Audio.comboSound); popupMessage = `💥 Combo x${state.perfectStackCombo}!<br>+${totalPoints} Bonus`; } else { playSound(Audio.perfectSound); popupMessage = `Perfect! +${totalPoints}`; } perfectMessageToShow = popupMessage; createSparkles(state.currentBlock); if (state.perfectStackCombo >= 5) showEmojiFace('chef', state.currentBlock.element); else if (state.perfectStackCombo >= 2) showEmojiFace('cool', state.currentBlock.element); else showEmojiFace('happy', state.currentBlock.element); const randomDripColor = CONFIG.DRIP_COLORS[Math.floor(Math.random() * CONFIG.DRIP_COLORS.length)]; state.currentBlock.element.style.setProperty('--drip-main-color', randomDripColor); state.currentBlock.element.style.setProperty('--drip-shadow-color', adjustColor(randomDripColor, -20)); state.currentBlock.element.classList.add('perfect-stack', 'block-glow'); setTimeout(() => { if (state.currentBlock && state.currentBlock.element) state.currentBlock.element.classList.remove('block-glow'); }, 800); state.currentBlock.width = prevBlock.width; state.currentBlock.x = prevBlock.x; } else { state.score++; showFloatingScore(1, state.currentBlock.element); state.perfectStackCombo = 0; const fallingWidth = state.currentBlock.width - newWidth; if (fallingWidth > 0.1) { playSound(Audio.fallSound); const fallingBlock = document.createElement('div'); fallingBlock.classList.add('block', 'falling'); fallingBlock.style.backgroundColor = state.currentBlock.element.style.backgroundColor; fallingBlock.style.width = `${fallingWidth}px`; fallingBlock.style.top = `${state.currentBlock.y}vh`; fallingBlock.style.transform = `translateX(${(state.currentBlock.x < newX) ? state.currentBlock.x : (newX + newWidth)}px)`; DOMElements.container.appendChild(fallingBlock); setTimeout(() => { fallingBlock.style.transform += ` translateY(110vh) rotateZ(-30deg) rotateX(45deg)`; fallingBlock.style.opacity = '0'; }, 10); setTimeout(() => fallingBlock.remove(), 1200); } state.currentBlock.width = newWidth; state.currentBlock.x = newX; } state.currentBlock.element.style.width = `${state.currentBlock.width}px`; state.currentBlock.element.style.transform = `translateX(${state.currentBlock.x}px)`; state.currentBlock.element.classList.add('stacked'); DOMElements.scoreDisplay.innerText = state.score; DOMElements.scoreDisplay.classList.add('score-updated'); DOMElements.scoreDisplay.addEventListener('animationend', () => DOMElements.scoreDisplay.classList.remove('score-updated'), { once: true }); const isNewBestScore = state.score > state.bestScore && !state.recordBrokenThisGame; if (isNewBestScore) { state.recordBrokenThisGame = true; handleNewBestScore(perfectMessageToShow); } else if (perfectMessageToShow) { showBonusMessage(perfectMessageToShow); } if (state.score > state.bestScore) { state.bestScore = state.score; localStorage.setItem('bestScore', state.bestScore); } let cameraOffset = state.blocks.length > CONFIG.CAMERA_MOVE_THRESHOLD ? (state.blocks.length - CONFIG.CAMERA_MOVE_THRESHOLD) * CONFIG.BLOCK_HEIGHT_VH : 0; document.documentElement.style.setProperty('--camera-offset', `${cameraOffset}vh`); DOMElements.container.style.transform = `translateY(${cameraOffset}vh)`; addBlock(); if (!state.gameFrozenForCelebration) { state.lastTimestamp = performance.now(); state.animationFrameId = requestAnimationFrame(animate); } }
             function animateCountUp(element, finalValue) { let startValue = 0; const duration = 800; const frameDuration = 1000 / 60; const totalFrames = Math.round(duration / frameDuration); const increment = finalValue / totalFrames; let currentFrame = 0; const counter = setInterval(() => { startValue += increment; currentFrame++; if (currentFrame >= totalFrames) { element.innerText = finalValue; clearInterval(counter); } else { element.innerText = Math.floor(startValue); } }, frameDuration); }
             function adjustColor(hex, percent) { hex = hex.replace('#', ''); let r = parseInt(hex.substring(0, 2), 16), g = parseInt(hex.substring(2, 4), 16), b = parseInt(hex.substring(4, 6), 16); const amount = Math.round(2.55 * percent); r = Math.max(0, Math.min(255, r + amount)); g = Math.max(0, Math.min(255, g + amount)); b = Math.max(0, Math.min(255, b + amount)); return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`; }
