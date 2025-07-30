@@ -126,14 +126,54 @@
         .perfect-stack-stat-gameover.has-perfects .stat-value { animation: perfect-glow 1.5s infinite ease-in-out; }
         @keyframes perfect-glow { 0%, 100% { text-shadow: 2px 2px 0px #008a00; filter: none; } 50% { text-shadow: 0 0 10px #a6ffae, 2px 2px 0px #008a00; filter: brightness(1.5); } }
         #game-over-buttons-new { display: flex; flex-direction: column; align-items: center; gap: 15px; width: 100%; }
-        #replay-button-gameover { display: flex; align-items: center; justify-content: center; gap: 15px; padding: 12px 30px; cursor: pointer; border: 3px solid white; border-radius: 18px; box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), inset 0 -5px 0 rgba(0,0,0,0.15); outline: none; -webkit-tap-highlight-color: transparent; transform: scale(0.8); opacity: 0; transition: transform 0.2s ease, box-shadow 0.2s ease; width: 70%; max-width: 250px; }
-        #replay-button-gameover:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 9px 18px rgba(0, 0, 0, 0.25), inset 0 -5px 0 rgba(0,0,0,0.15); }
-        #replay-button-gameover:active { transform: translateY(1px) scale(0.98); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), inset 0 -3px 0 rgba(0,0,0,0.15); }
-        #replay-button-gameover { background: linear-gradient(145deg, #89cff0, #6a5acd); }
-        #replay-button-gameover span { text-shadow: 2px 2px 0px #2a3c9a; }
-        #replay-button-gameover img { width: 35px; height: 35px; filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.25)); }
-        #replay-button-gameover span { font-family: 'Fredoka One', 'Chewy', sans-serif; font-size: 28px; font-weight: bold; color: white; }
-        @keyframes periodic-zoom { 0%, 20%, 100% { transform: scale(1); } 10% { transform: scale(1.08); } }
+        /* Style for both Replay and Share buttons */
+#replay-button-gameover,
+#share-button-gameover {
+    display: flex; align-items: center; justify-content: center; gap: 15px; padding: 12px 30px; cursor: pointer;
+    border: 3px solid white; border-radius: 18px; box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), inset 0 -5px 0 rgba(0,0,0,0.15);
+    outline: none; -webkit-tap-highlight-color: transparent;
+    transform: scale(0.8); opacity: 0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: 70%; max-width: 250px;
+}
+
+#replay-button-gameover:hover,
+#share-button-gameover:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 9px 18px rgba(0, 0, 0, 0.25), inset 0 -5px 0 rgba(0,0,0,0.15);
+}
+
+#replay-button-gameover:active,
+#share-button-gameover:active {
+    transform: translateY(1px) scale(0.98);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), inset 0 -3px 0 rgba(0,0,0,0.15);
+}
+
+/* Specific colors for each button */
+#replay-button-gameover { background: linear-gradient(145deg, #89cff0, #6a5acd); }
+#share-button-gameover { background: linear-gradient(145deg, #28a745, #218838); margin-top: -5px; } /* Green color for share */
+
+#replay-button-gameover span,
+#share-button-gameover span {
+    font-family: 'Fredoka One', 'Chewy', sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+}
+
+#replay-button-gameover span { text-shadow: 2px 2px 0px #2a3c9a; }
+#share-button-gameover span { text-shadow: 2px 2px 0px #155724; }
+
+#replay-button-gameover img,
+#share-button-gameover img {
+    width: 35px;
+    height: 35px;
+    filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.25));
+}
+
+/* Animation Delays */
+#game-over-box.active #replay-button-gameover { animation: pop-in 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0.7s forwards, periodic-zoom 3s ease-in-out 1.5s infinite; }
+#game-over-box.active #share-button-gameover { animation: pop-in 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0.8s forwards; }
         #game-over-box.active #replay-button-gameover { animation: pop-in 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0.7s forwards, periodic-zoom 3s ease-in-out 1.5s infinite; }
         @keyframes pop-in { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         #pause-overlay { top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 150; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
@@ -275,11 +315,17 @@
                     <img src="game-over-title-png.png" id="game-over-image" alt="Game Over PNG Transparent Image for Games">
                     <div id="game-over-stats-new"><div class="stat-line your-score-stat-gameover"><span class="stat-label">🎂 Final Score</span><span class="stat-value" id="final-score-value-new">0</span></div><div class="stat-line best-score-stat-gameover"><div class="stat-label-group"><span class="stat-label">🏆 Best Score</span><span id="new-best-score-emoji" class="hidden"></span></div><span class="stat-value" id="best-score-final-new">0</span></div><div class="stat-line perfect-stack-stat-gameover"><span class="stat-label">🎯 Perfect Stack</span><span class="stat-value" id="perfect-stacks-final-new">0</span></div></div>
                     <div id="game-over-buttons-new">
-                        <div id="replay-button-gameover">
-                            <img src="replay-game-icon.png" alt="Replay Game Button Icon PNG - Free Download">
-                            <span>Replay</span>
-                        </div>
-                    </div>
+    <div id="replay-button-gameover">
+        <img src="replay-game-icon.png" alt="Replay Game Button Icon PNG - Free Download">
+        <span>Replay</span>
+    </div>
+
+    <!-- 👇👇👇 यहाँ नया शेयर बटन जोड़ें 👇👇👇 -->
+    <div id="share-button-gameover">
+        <img src="share-icon.png" alt="Share Score Icon">
+        <span>Share</span>
+    </div>
+</div>
                 </div>
             </div>
             <div id="settings-overlay" class="hidden">
@@ -337,7 +383,7 @@
             });
 
             const CONFIG = { INITIAL_SPEED: 130, MAX_SPEED: 180, BASE_BLOCK_COUNT: 6, BLOCK_HEIGHT_VH: 3.4, STACK_START_TOP_VH: 97, CAMERA_MOVE_THRESHOLD: 12, PERFECT_MATCH_THRESHOLD: 2, COLORS: ['#F7E7CE', '#8b4513', '#F47983', '#62B6F4', '#fffacd', '#FFE150', '#FFBD59'], DRIP_COLORS: ['#f3e5ab', '#f78fa7', '#b0c4de', '#fff44f', '#bdfcc9'], BACKGROUND_GRADIENTS: ['linear-gradient(#6a89cc, #b8e994, #6a89cc)', 'linear-gradient(#82ccdd, #b8e994, #82ccdd)', 'linear-gradient(#ffbe76, #ff7979, #ffbe76)', 'linear-gradient(#f0932b, #ffb6c1, #f0932b)', 'linear-gradient(#7ed6df, #be2edd, #7ed6df)', 'linear-gradient(#f9ca24, #a29bfe, #f9ca24)'], EMOJIS: { happy: '☺️ ', cool: '😎', chef: '👨‍🍳', sad: '😥' }, POOL_SIZES: { SPARKLES: 20, FLOATING_SCORES: 5, EMOJIS: 5, BONUS_MESSAGES: 3 } };
-            const DOMElements = { body: document.body, gameWrapper: document.getElementById('game-wrapper'), gameWindow: document.getElementById('game-window'), startScreen: document.getElementById('start-screen'), initialPlayBtn: document.getElementById('initial-play-btn'), loadingOverlay: document.getElementById('loading-overlay'), progressBar: document.getElementById('progress-bar'), progressText: document.getElementById('progress-text'), container: document.getElementById('container'), scoreDisplay: document.getElementById('score'), uiTop: document.getElementById('ui-top'), menu: document.getElementById('menu'), gameOverBox: document.getElementById('game-over-box'), finalScoreValueNew: document.getElementById('final-score-value-new'), bestScoreFinalNew: document.getElementById('best-score-final-new'), perfectStacksFinalNew: document.getElementById('perfect-stacks-final-new'), perfectStackStatLine: document.querySelector('.perfect-stack-stat-gameover'), replayButtonGameOver: document.getElementById('replay-button-gameover'), floatingElementsBg: document.getElementById('floating-elements-bg'), animatedBg: document.getElementById('animated-gradient-bg'), tapToStackMessage: document.getElementById('tap-to-stack-message'), newBestScoreEmoji: document.getElementById('new-best-score-emoji'), newBestBanner: document.getElementById('new-best-banner'), playPauseControl: document.getElementById('play-pause-control'), playPauseImg: document.getElementById('play-pause-img'), pauseOverlay: document.getElementById('pause-overlay'), resumeButton: document.getElementById('resume-button'), pauseScoreDisplay: document.getElementById('pause-score'), pauseBestScoreDisplay: document.getElementById('pause-best-score'), restartButtonPause: document.getElementById('restart-button-pause'), sfxTogglePause: document.getElementById('sfx-toggle-pause'), musicTogglePause: document.getElementById('music-toggle-pause'), sfxToggleImg: document.getElementById('sfx-toggle-img'), musicToggleImg: document.getElementById('music-toggle-img'), settingsOverlay: document.getElementById('settings-overlay'), musicToggleSettings: document.getElementById('music-toggle-settings'), sfxToggleSettings: document.getElementById('sfx-toggle-settings'), musicVolumeSlider: document.getElementById('music-volume-slider'), sfxVolumeSlider: document.getElementById('sfx-volume-slider'), saveSettingsBtn: document.getElementById('save-settings-btn'), };
+            const DOMElements = { body: document.body, gameWrapper: document.getElementById('game-wrapper'), gameWindow: document.getElementById('game-window'), startScreen: document.getElementById('start-screen'), initialPlayBtn: document.getElementById('initial-play-btn'), loadingOverlay: document.getElementById('loading-overlay'), progressBar: document.getElementById('progress-bar'), progressText: document.getElementById('progress-text'), container: document.getElementById('container'), scoreDisplay: document.getElementById('score'), uiTop: document.getElementById('ui-top'), menu: document.getElementById('menu'), gameOverBox: document.getElementById('game-over-box'), finalScoreValueNew: document.getElementById('final-score-value-new'), bestScoreFinalNew: document.getElementById('best-score-final-new'), perfectStacksFinalNew: document.getElementById('perfect-stacks-final-new'), perfectStackStatLine: document.querySelector('.perfect-stack-stat-gameover'), replayButtonGameOver: document.getElementById('replay-button-gameover'), floatingElementsBg: document.getElementById('floating-elements-bg'), animatedBg: document.getElementById('animated-gradient-bg'), tapToStackMessage: document.getElementById('tap-to-stack-message'), newBestScoreEmoji: document.getElementById('new-best-score-emoji'), newBestBanner: document.getElementById('new-best-banner'), playPauseControl: document.getElementById('play-pause-control'), playPauseImg: document.getElementById('play-pause-img'), pauseOverlay: document.getElementById('pause-overlay'), resumeButton: document.getElementById('resume-button'), pauseScoreDisplay: document.getElementById('pause-score'), pauseBestScoreDisplay: document.getElementById('pause-best-score'), restartButtonPause: document.getElementById('restart-button-pause'), sfxTogglePause: document.getElementById('sfx-toggle-pause'), musicTogglePause: document.getElementById('music-toggle-pause'), sfxToggleImg: document.getElementById('sfx-toggle-img'), musicToggleImg: document.getElementById('music-toggle-img'), settingsOverlay: document.getElementById('settings-overlay'), musicToggleSettings: document.getElementById('music-toggle-settings'), sfxToggleSettings: document.getElementById('sfx-toggle-settings'), musicVolumeSlider: document.getElementById('music-volume-slider'), sfxVolumeSlider: document.getElementById('sfx-volume-slider'), saveSettingsBtn: document.getElementById('save-settings-btn'), shareBtnGameOver: document.getElementById('share-button-gameover') };
             const Audio = { backgroundMusic: document.getElementById('backgroundMusic'), allSfx: Array.from(document.querySelectorAll('audio')), };
             Audio.playClickSound = document.getElementById('playClickSound'); Audio.gameOverSound = document.getElementById('gameOverSound'); Audio.perfectSound = document.getElementById('perfectSound'); Audio.fallSound = document.getElementById('fallSound'); Audio.clickSound = document.getElementById('clickSound'); Audio.uiClickSound = document.getElementById('uiClickSound'); Audio.fanfareSound = document.getElementById('fanfareSound'); Audio.comboSound = document.getElementById('comboSound');
             let state = { isPlaying: false, score: 0, perfectStackCombo: 0, blocks: [], currentBlock: null, animationFrameId: null, totalSessionPerfectStacks: 0, initialBlockWidth: 0, isPaused: false, hasTappedOnce: false, isPlacing: false, lastTimestamp: 0, isMusicMuted: false, areSfxMuted: false, musicVolume: 0.5, sfxVolume: 1.0, bestScore: 0, recordBrokenThisGame: false, gameFrozenForCelebration: false, backButtonPressedOnce: false, isGameOver: false };
@@ -366,7 +412,13 @@
             function placeBlock() { if (!state.currentBlock || state.isPlacing) return; state.isPlacing = true; if (!state.hasTappedOnce) { DOMElements.tapToStackMessage.classList.add('fade-out'); setTimeout(() => DOMElements.tapToStackMessage.classList.add('hidden'), 300); state.hasTappedOnce = true; } cancelAnimationFrame(state.animationFrameId); const prevBlock = state.blocks[state.blocks.length - 2]; const newX = Math.max(state.currentBlock.x, prevBlock.x); const newWidth = Math.min(state.currentBlock.x + state.currentBlock.width, prevBlock.x + prevBlock.width) - newX; let perfectMessageToShow = null; if (newWidth <= 0.1) { if (Audio.fallSound && !state.areSfxMuted) { const originalVolume = state.sfxVolume; Audio.fallSound.volume = Math.min(1.0, originalVolume * 1.5); Audio.fallSound.currentTime = 0; Audio.fallSound.play().catch(() => {}); setTimeout(() => { if(Audio.fallSound) Audio.fallSound.volume = originalVolume; }, 1000); } showEmojiFace('sad', state.currentBlock.element); state.currentBlock.element.classList.add('falling'); state.currentBlock.element.style.transform = `translateY(110vh) rotateZ(30deg)`; state.currentBlock.element.style.opacity = '0'; gameOver(); return; } playSound(Audio.clickSound); const isPerfect = (prevBlock.width - newWidth) < CONFIG.PERFECT_MATCH_THRESHOLD; if (isPerfect) { state.perfectStackCombo++; state.totalSessionPerfectStacks++; let basePoints = 3; let bonusPoints = 0; if (state.perfectStackCombo >= 5) { bonusPoints = 3; } else if (state.perfectStackCombo >= 3) { bonusPoints = state.perfectStackCombo - 2; } const totalPoints = basePoints + bonusPoints; state.score += totalPoints; let popupMessage = ''; if (state.perfectStackCombo >= 3) { playSound(Audio.comboSound); popupMessage = `💥 Combo x${state.perfectStackCombo}!<br>+${totalPoints} Bonus`; } else { playSound(Audio.perfectSound); popupMessage = `Perfect! +${totalPoints}`; } perfectMessageToShow = popupMessage; createSparkles(state.currentBlock); if (state.perfectStackCombo >= 5) showEmojiFace('chef', state.currentBlock.element); else if (state.perfectStackCombo >= 2) showEmojiFace('cool', state.currentBlock.element); else showEmojiFace('happy', state.currentBlock.element); const randomDripColor = CONFIG.DRIP_COLORS[Math.floor(Math.random() * CONFIG.DRIP_COLORS.length)]; state.currentBlock.element.style.setProperty('--drip-main-color', randomDripColor); state.currentBlock.element.style.setProperty('--drip-shadow-color', adjustColor(randomDripColor, -20)); state.currentBlock.element.classList.add('perfect-stack', 'block-glow'); setTimeout(() => { if (state.currentBlock && state.currentBlock.element) state.currentBlock.element.classList.remove('block-glow'); }, 800); state.currentBlock.width = prevBlock.width; state.currentBlock.x = prevBlock.x; } else { state.score++; showFloatingScore(1, state.currentBlock.element); state.perfectStackCombo = 0; const fallingWidth = state.currentBlock.width - newWidth; if (fallingWidth > 0.1) { playSound(Audio.fallSound); const fallingBlock = document.createElement('div'); fallingBlock.classList.add('block', 'falling'); fallingBlock.style.backgroundColor = state.currentBlock.element.style.backgroundColor; fallingBlock.style.width = `${fallingWidth}px`; fallingBlock.style.top = `${state.currentBlock.y}vh`; fallingBlock.style.transform = `translateX(${(state.currentBlock.x < newX) ? state.currentBlock.x : (newX + newWidth)}px)`; DOMElements.container.appendChild(fallingBlock); setTimeout(() => { fallingBlock.style.transform += ` translateY(110vh) rotateZ(-30deg) rotateX(45deg)`; fallingBlock.style.opacity = '0'; }, 10); setTimeout(() => fallingBlock.remove(), 1200); } state.currentBlock.width = newWidth; state.currentBlock.x = newX; } state.currentBlock.element.style.width = `${state.currentBlock.width}px`; state.currentBlock.element.style.transform = `translateX(${state.currentBlock.x}px)`; state.currentBlock.element.classList.add('stacked'); DOMElements.scoreDisplay.innerText = state.score; DOMElements.scoreDisplay.classList.add('score-updated'); DOMElements.scoreDisplay.addEventListener('animationend', () => DOMElements.scoreDisplay.classList.remove('score-updated'), { once: true }); const isNewBestScore = state.score > state.bestScore && !state.recordBrokenThisGame; if (isNewBestScore) { state.recordBrokenThisGame = true; handleNewBestScore(perfectMessageToShow); } else if (perfectMessageToShow) { showBonusMessage(perfectMessageToShow); } if (state.score > state.bestScore) { state.bestScore = state.score; localStorage.setItem('bestScore', state.bestScore); } let cameraOffset = state.blocks.length > CONFIG.CAMERA_MOVE_THRESHOLD ? (state.blocks.length - CONFIG.CAMERA_MOVE_THRESHOLD) * CONFIG.BLOCK_HEIGHT_VH : 0; document.documentElement.style.setProperty('--camera-offset', `${cameraOffset}vh`); DOMElements.container.style.transform = `translateY(${cameraOffset}vh)`; addBlock(); if (!state.gameFrozenForCelebration) { state.lastTimestamp = performance.now(); state.animationFrameId = requestAnimationFrame(animate); } }
             function animateCountUp(element, finalValue) { let startValue = 0; const duration = 800; const frameDuration = 1000 / 60; const totalFrames = Math.round(duration / frameDuration); const increment = finalValue / totalFrames; let currentFrame = 0; const counter = setInterval(() => { startValue += increment; currentFrame++; if (currentFrame >= totalFrames) { element.innerText = finalValue; clearInterval(counter); } else { element.innerText = Math.floor(startValue); } }, frameDuration); }
             function adjustColor(hex, percent) { hex = hex.replace('#', ''); let r = parseInt(hex.substring(0, 2), 16), g = parseInt(hex.substring(2, 4), 16), b = parseInt(hex.substring(4, 6), 16); const amount = Math.round(2.55 * percent); r = Math.max(0, Math.min(255, r + amount)); g = Math.max(0, Math.min(255, g + amount)); b = Math.max(0, Math.min(255, b + amount)); return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`; }
-            function gameOver() { DOMElements.body.classList.remove('game-active'); DOMElements.body.classList.add('game-over'); DOMElements.gameWrapper.style.backgroundImage = "url('home_screen.png')"; state.isGameOver = true; state.isPlaying = false; cancelAnimationFrame(state.animationFrameId); Audio.backgroundMusic.pause(); setTimeout(() => playSound(Audio.gameOverSound), 400); DOMElements.container.classList.add('game-over'); if (state.score > state.bestScore) { state.bestScore = state.score; localStorage.setItem('bestScore', state.bestScore); } if(state.totalSessionPerfectStacks > 0) { DOMElements.perfectStackStatLine.classList.add('has-perfects'); } setTimeout(() => { DOMElements.newBestScoreEmoji.style.display = state.recordBrokenThisGame ? 'inline-block' : 'none'; DOMElements.newBestScoreEmoji.classList.toggle('hidden', !state.recordBrokenThisGame); DOMElements.gameWrapper.classList.add('game-over-active'); DOMElements.uiTop.classList.add('hidden'); DOMElements.menu.classList.remove('hidden'); DOMElements.gameOverBox.classList.remove('hidden'); DOMElements.gameOverBox.classList.add('active'); setTimeout(() => { animateCountUp(DOMElements.finalScoreValueNew, state.score); animateCountUp(DOMElements.bestScoreFinalNew, state.bestScore); animateCountUp(DOMElements.perfectStacksFinalNew, state.totalSessionPerfectStacks); }, 400); }, 800); }
+            function gameOver() { DOMElements.body.classList.remove('game-active'); DOMElements.body.classList.add('game-over'); DOMElements.gameWrapper.style.backgroundImage = "url('home_screen.png')"; state.isGameOver = true; state.isPlaying = false; cancelAnimationFrame(state.animationFrameId); Audio.backgroundMusic.pause(); setTimeout(() => playSound(Audio.gameOverSound), 400); DOMElements.container.classList.add('game-over'); if (state.score > state.bestScore) { state.bestScore = state.score; localStorage.setItem('bestScore', state.bestScore); } if(state.totalSessionPerfectStacks > 0) { DOMElements.perfectStackStatLine.classList.add('has-perfects'); } setTimeout(() => { DOMElements.newBestScoreEmoji.style.display = state.recordBrokenThisGame ? 'inline-block' : 'none'; DOMElements.newBestScoreEmoji.classList.toggle('hidden', !state.recordBrokenThisGame); DOMElements.gameWrapper.classList.add('game-over-active'); DOMElements.uiTop.classList.add('hidden'); DOMElements.menu.classList.remove('hidden'); DOMElements.gameOverBox.classList.remove('hidden'); DOMElements.gameOverBox.classList.add('active');
+            // Add event listener to the share button ONLY when the game over screen is visible
+if (DOMElements.shareBtnGameOver) {
+    // We use { once: true } to prevent multiple listeners from being added on multiple game overs
+    DOMElements.shareBtnGameOver.addEventListener('click', shareScore, { once: true });
+}
+            setTimeout(() => { animateCountUp(DOMElements.finalScoreValueNew, state.score); animateCountUp(DOMElements.bestScoreFinalNew, state.bestScore); animateCountUp(DOMElements.perfectStacksFinalNew, state.totalSessionPerfectStacks); }, 400); }, 800); }
             function openSettings() { updateAllUIs(); DOMElements.settingsOverlay.classList.remove('hidden'); }
             function closeSettings() { saveAudioSettings(); DOMElements.settingsOverlay.classList.add('hidden'); }
             function saveAudioSettings() { localStorage.setItem('isMusicMuted', state.isMusicMuted); localStorage.setItem('areSfxMuted', state.areSfxMuted); localStorage.setItem('musicVolume', state.musicVolume); localStorage.setItem('sfxVolume', state.sfxVolume); showToast("Settings Saved!"); }
@@ -399,7 +451,42 @@
                 cancelAnimationFrame(state.animationFrameId);
                 state.animationFrameId = requestAnimationFrame(animate);
             }
+            function shareScore() {
+    playSound(Audio.uiClickSound); // Add a click sound
+    const score = state.score;
+    const url = "https://cakrise.github.io"; // आपकी वेबसाइट का लिंक
 
+    const funnyChallenges = [
+        `My cake tower is ${score} slices high! Bet you can't even get half. 😉`,
+        `Just scored ${score} in Cakrise! Is anyone even close to my record? 🤔`,
+        `Warning: Cakrise is addictive. I scored ${score}! Your turn. 🔥`,
+        `I'm the undisputed Cake King with ${score} points! 👑 Challenge me if you dare!`,
+        `My score is ${score}. My disappointment is immeasurable, and my day is ruined. Can you do better? 😂`
+    ];
+
+    const randomIndex = Math.floor(Math.random() * funnyChallenges.length);
+    let randomMessage = funnyChallenges[randomIndex];
+
+    // Add a special message for a score of 0
+    if (score === 0) {
+        randomMessage = `I scored 0... on purpose, of course. 😉 Can you do better in Cakrise?`;
+    }
+
+    const shareText = `${randomMessage}\n\nPlay here: ${url}\n#CakriseChallenge`;
+
+    if (navigator.share) {
+        navigator.share({
+            title: 'Can you beat my Cakrise Score?',
+            text: shareText,
+        }).catch(error => console.log('Error sharing:', error));
+    } else {
+        navigator.clipboard.writeText(shareText).then(() => {
+            showToast("Score copied! Share it with friends.");
+        }).catch(err => {
+            alert(`Share this with your friends!\n\n${shareText}`);
+        });
+    }
+}
             function simulateLoading() {
                 const progressBar = document.getElementById('progress-bar');
                 const progressText = document.getElementById('progress-text');
